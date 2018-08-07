@@ -17,10 +17,6 @@ public class WeatherQueryResult {
         this.weatherData = this.getUrlContents(this.createUrlAddress(cityName, apiID));
     }
 
-    public String getWeatherData() {
-        return weatherData;
-    }
-
     private static String createUrlAddress(String cityName, String apiID) {
         String url = url1 + cityName + url2 + apiID + url3;
         return url;
@@ -49,5 +45,9 @@ public class WeatherQueryResult {
             e.printStackTrace();
         }
         return content.toString();
+    }
+
+    public String getWeatherData() {
+        return weatherData;
     }
 }
