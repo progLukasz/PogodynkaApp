@@ -25,8 +25,10 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
 
-        WeatherQueryResult newForecast = new WeatherQueryResult("Warsaw", "b6907d289e10d714a6e88b30761fae22");
+        //https://openweathermap.org/data/2.5/weather?q=Warsaw&appid=b6907d289e10d714a6e88b30761fae22&units=metric
+        WeatherQueryResult newForecast = new WeatherQueryResult("Poznań", "b6907d289e10d714a6e88b30761fae22");
         ParsedForecast forecast = new ParsedForecast(newForecast.getWeatherData());
-        System.out.println();
+
+        System.out.println(forecast.getCity());
     }
 }

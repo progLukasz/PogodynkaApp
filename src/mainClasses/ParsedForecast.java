@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.regex.Pattern;
 
 public class ParsedForecast {
 
     // weather
-    private static int id;
     private static String main;
     private static String mainDescription;
     // main
@@ -18,39 +16,48 @@ public class ParsedForecast {
     private static float tempMax;
     private static int pressure;
     private static int humidity;
-
     // visibility
     private static int visibility;
-
     // wind
-    private static float speed;
-    private static int degree;
-
+    private static float windSpeed;
+    private static int windDegree;
     //clouds
     private static int clouds;
+    //place
+    private static String city;
 
-    private static String tokens[];
+    private static List<String> weatherDataList;
 
     public ParsedForecast(String weatherData) {
-        this.tokens = splitDataWithDelimeters(weatherData, "\"|\\{|\\}|:|,|\\[|\\]");
+        this.weatherDataList = splitDataIntoList(weatherData, "\"|\\{|\\}|:|,|\\[|\\]");
+        this.main = weatherSingleDataFetcher(weatherDataList,"main");
+        this.mainDescription = weatherSingleDataFetcher(weatherDataList,"description");
+        this.temperature = Float.parseFloat(weatherSingleDataFetcher(weatherDataList, "temp"));
+        this.tempMin = Float.parseFloat(weatherSingleDataFetcher(weatherDataList, "temp_min"));
+        this.tempMax = Float.parseFloat(weatherSingleDataFetcher(weatherDataList, "temp_max"));
+        this.pressure = Integer.parseInt(weatherSingleDataFetcher(weatherDataList, "pressure"));
+        this.humidity = Integer.parseInt(weatherSingleDataFetcher(weatherDataList, "humidity"));
+        this.visibility = Integer.parseInt(weatherSingleDataFetcher(weatherDataList, "visibility"));
+        this.windSpeed = Float.parseFloat(weatherSingleDataFetcher(weatherDataList, "speed"));
+        this.windDegree = Integer.parseInt(weatherSingleDataFetcher(weatherDataList, "deg"));
+        this.clouds = Integer.parseInt(weatherSingleDataFetcher(weatherDataList, "all"));
+        this.city = weatherSingleDataFetcher(weatherDataList, "name");
     }
 
-    private static String[] splitDataWithDelimeters (String data, String delims){
+    private static List<String> splitDataIntoList (String data, String delims){
 
-//        Pattern pattern = Pattern.compile(Pattern.quote(delims));
-//        String[] newData = pattern.split(data);
         String[] rawSplitData = data.split(delims);
         List<String> clearedWeatherData = new ArrayList<String>(Arrays.asList(rawSplitData));
+        clearedWeatherData.removeAll(Collections.singleton(""));
 
-        clearedWeatherData.removeAll(Collections.singleton(null));
-        for (String d : clearedWeatherData) {
-            System.out.println(d + System.lineSeparator());
-        }
-        return tokens;
+        return clearedWeatherData;
     }
 
-    public static int getId() {
-        return id;
+    private static <T> T weatherSingleDataFetcher (List<T> list, String keyword){
+        int index = list.indexOf(keyword);
+        T data = list.get(index + 1);
+
+        return data;
     }
 
     public static String getMain() {
@@ -85,15 +92,17 @@ public class ParsedForecast {
         return visibility;
     }
 
-    public static float getSpeed() {
-        return speed;
+    public static float getWindSpeed() {
+        return windSpeed;
     }
 
-    public static int getDegree() {
-        return degree;
+    public static int getWindDegree() {
+        return windDegree;
     }
 
     public static int getClouds() {
         return clouds;
     }
+
+    public static String getCity() { return city; }
 }
