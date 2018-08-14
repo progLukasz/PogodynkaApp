@@ -7,9 +7,9 @@ import java.net.URLConnection;
 
 public class WeatherQueryResult {
 
-    private String weatherData;
+    private static String weatherData;
 
-    final static String url1 = "https://openweathermap.org/data/2.5/weather?q=";
+    final static String url1 = "https://api.openweathermap.org/data/2.5/forecast?q=";
     final static String url2 = "&appid=";
     final static String url3 = "&units=metric";
 
@@ -28,10 +28,8 @@ public class WeatherQueryResult {
         try {
             URL urlNew = new URL(url);
 
-            // create a urlconnection object
             URLConnection urlConnection = urlNew.openConnection();
 
-            // wrap the urlconnection in a bufferedreader
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
 
             String line;
@@ -47,7 +45,5 @@ public class WeatherQueryResult {
         return content.toString();
     }
 
-    public String getWeatherData() {
-        return weatherData;
-    }
+    public static String getWeatherData() { return weatherData; }
 }
