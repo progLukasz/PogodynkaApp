@@ -22,26 +22,25 @@ public class WeatherQueryResult {
         return url;
     }
 
-    private static String getUrlContents(String url) {
+    private static String getUrlContents(String url) throws RuntimeException {
         StringBuilder content = new StringBuilder();
 
-        try {
+        try{
             URL urlNew = new URL(url);
 
             URLConnection urlConnection = urlNew.openConnection();
 
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(urlConnection.getInputStream()));
-
             String line;
 
-            // read from the urlconnection via the bufferedreader
             while ((line = bufferedReader.readLine()) != null) {
                 content.append(line + "\n");
             }
             bufferedReader.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+       } catch (Exception e) {
+            content.append("Error:" + e);
+       }
         return content.toString();
     }
 

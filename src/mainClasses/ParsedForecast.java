@@ -7,40 +7,37 @@ import java.util.List;
 
 public class ParsedForecast {
 
-    private static long dt;
-    private static String dateAndTime;
+    private long dt;
+    private String dateAndTime;
+    public int code;
+    private String message;
     // main
-    private static float temperature;
-    private static float tempMin;
-    private static float tempMax;
-    private static float pressure;
-    private static float pressureSeaLevel;
-    private static float pressureGroundLevel;
-    private static int humidity;
-    private static float tempDifference;
-
+    private float temperature;
+    private float tempMin;
+    private float tempMax;
+    private float pressure;
+    private float pressureSeaLevel;
+    private float pressureGroundLevel;
+    private int humidity;
+    private float tempDifference;
     // weather
-    private static String weatherId;
-     private static String main;
-     private static String mainDescription;
-     private static String weatherIcon;
-
+    private String weatherId;
+    private String main;
+    private String mainDescription;
+    private String weatherIcon;
     //clouds
-    private static int clouds;
-
+    private int clouds;
     // wind
-    private static float windSpeed;
-    private static float windDegree;
+    private float windSpeed;
+    private float windDegree;
 
     private static List<String> weatherDataList;
 
     public ParsedForecast(String weatherData) {
 
         this.weatherDataList = splitDataIntoList(weatherData, "\"|\\{|\\}|:|,|\\[|\\]");
-
        // this.dt = Integer.parseInt(weatherSingleDataFetcher(weatherDataList,"dt"));
         this.dt = Long.parseLong(weatherData.substring(0,10));
-
         this.dateAndTime = weatherSingleDataFetcher(weatherDataList, "dt_txt");
         this.temperature = Float.parseFloat(weatherSingleDataFetcher(weatherDataList, "temp"));
         this.tempMin = Float.parseFloat(weatherSingleDataFetcher(weatherDataList, "temp_min"));
@@ -59,7 +56,8 @@ public class ParsedForecast {
         this.windDegree = Float.parseFloat(weatherSingleDataFetcher(weatherDataList, "deg"));
     }
 
-    private static List<String> splitDataIntoList (String data, String delims){
+
+    protected static List<String> splitDataIntoList (String data, String delims){
 
         String[] rawSplitData = data.split(delims);
         List<String> clearedWeatherData = new ArrayList<String>(Arrays.asList(rawSplitData));
@@ -68,79 +66,94 @@ public class ParsedForecast {
         return clearedWeatherData;
     }
 
-    private static <T> T weatherSingleDataFetcher (List<T> list, String keyword){
+    protected static <T> T weatherSingleDataFetcher (List<T> list, String keyword){
         int index = list.indexOf(keyword);
         T data = list.get(index + 1);
 
         return data;
     }
 
-    public static long getDt() {
+    public int getCode( String weatherData) {
+        List<String> weatherDataList = splitDataIntoList(weatherData, "\"|\\{|\\}|:|,|\\[|\\]");
+        this.code = Integer.parseInt(weatherSingleDataFetcher(weatherDataList, "cod"));
+        return this.code;
+    }
+
+    public String getMessage(String weatherData) {
+        List<String> weatherDataList = splitDataIntoList(weatherData, "\"|\\{|\\}|:|,|\\[|\\]");
+        this.message = weatherSingleDataFetcher(weatherDataList, "message");
+        return this.message;
+    }
+
+    public long getDt() {
         return dt;
     }
 
-    public static String getDateAndTime() {
+    public String getDateAndTime() {
         return dateAndTime;
     }
 
-    public static float getTemperature() {
+
+
+    public float getTemperature() {
         return temperature;
     }
 
-    public static float getTempMin() {
+    public float getTempMin() {
         return tempMin;
     }
 
-    public static float getTempMax() {
+    public float getTempMax() {
         return tempMax;
     }
 
-    public static float getPressure() {
+    public float getPressure() {
         return pressure;
     }
 
-    public static float getPressureSeaLevel() {
+    public float getPressureSeaLevel() {
         return pressureSeaLevel;
     }
 
-    public static float getPressureGroundLevel() {
+    public float getPressureGroundLevel() {
         return pressureGroundLevel;
     }
 
-    public static int getHumidity() {
+    public int getHumidity() {
         return humidity;
     }
 
-    public static float getTempDifference() {
+    public float getTempDifference() {
         return tempDifference;
     }
 
-    public static String getWeatherId() {
+    public String getWeatherId() {
         return weatherId;
     }
 
-    public static String getMain() {
+    public String getMain() {
         return main;
     }
 
-    public static String getMainDescription() {
+    public String getMainDescription() {
         return mainDescription;
     }
 
-    public static String getWeatherIcon() {
+    public String getWeatherIcon() {
         return weatherIcon;
     }
 
-    public static int getClouds() {
+    public int getClouds() {
         return clouds;
     }
 
-    public static float getWindSpeed() {
+    public float getWindSpeed() {
         return windSpeed;
     }
 
-    public static float getWindDegree() {
+    public float getWindDegree() {
         return windDegree;
     }
 
+    public void setCode(int code){ this.code = code;}
 }
