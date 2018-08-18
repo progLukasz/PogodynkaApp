@@ -1,29 +1,25 @@
-package sample;
+package mainClasses;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import mainClasses.FiveDaysWeather;
-import mainClasses.ParsedForecast;
-import mainClasses.WeatherQueryResult;
-import mainClasses.OtherMethods;
 
-import java.net.URL;
-import java.util.Scanner;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
 
-        AnchorPane titlePage = new AnchorPane();
-        //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("frontend.fxml"));
+        Parent layout = fxmlLoader.load();
+        Scene scene = new Scene(layout);
+        primaryStage.setScene(scene);
         primaryStage.setTitle("PogodynkApp");
-        primaryStage.setScene(new Scene(titlePage, 600, 300));
         primaryStage.show();
+
     }
 
     public static void main(String[] args) {
