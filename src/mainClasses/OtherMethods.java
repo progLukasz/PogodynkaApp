@@ -6,4 +6,5 @@ public class OtherMethods {
         String weatherDataS = weatherData.getWeatherData();
         return (!weatherDataS.regionMatches(0, "Error", 0, 5));
     }
+
 }

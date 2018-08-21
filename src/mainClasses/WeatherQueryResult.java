@@ -13,7 +13,10 @@ public class WeatherQueryResult {
     final static String url2 = "&appid=";
     final static String url3 = "&units=metric";
 
+    final String city;
+
     public WeatherQueryResult(String cityName, String apiID) {
+        this.city = cityName;
         this.weatherData = this.getUrlContents(this.createUrlAddress(cityName, apiID));
     }
 
@@ -45,4 +48,8 @@ public class WeatherQueryResult {
     }
 
     public static String getWeatherData() { return weatherData; }
+
+    public String getCity() {
+        return city;
+    }
 }
