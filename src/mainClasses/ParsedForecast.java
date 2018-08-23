@@ -9,6 +9,8 @@ public class ParsedForecast {
 
     private long dt;
     private String dateAndTime;
+    private String date;
+    private String time;
     public int code;
     private String message;
     // main
@@ -39,6 +41,9 @@ public class ParsedForecast {
        // this.dt = Integer.parseInt(weatherSingleDataFetcher(weatherDataList,"dt"));
         this.dt = Long.parseLong(weatherData.substring(0,10));
         this.dateAndTime = weatherSingleDataFetcher(weatherDataList, "dt_txt");
+        this.date = dateAndTime.substring(0,10);
+        this.time = dateAndTime.substring(11,13);
+        this.time += ":00";
         this.temperature = Float.parseFloat(weatherSingleDataFetcher(weatherDataList, "temp"));
         this.tempMin = Float.parseFloat(weatherSingleDataFetcher(weatherDataList, "temp_min"));
         this.tempMax = Float.parseFloat(weatherSingleDataFetcher(weatherDataList, "temp_max"));
@@ -93,7 +98,13 @@ public class ParsedForecast {
         return dateAndTime;
     }
 
+    public String getDate() {
+        return date;
+    }
 
+    public String getTime() {
+        return time;
+    }
 
     public float getTemperature() {
         return temperature;

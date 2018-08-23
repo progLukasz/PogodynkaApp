@@ -2,13 +2,20 @@ package mainClasses;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 
 public class AppController {
+
+
+    @FXML   private TilePane topTilePane;
+    @FXML   private TilePane bottomTilePane;
 
     @FXML   private Label homeLabelCity;
     @FXML   private Label homeLabelDate;
@@ -50,5 +57,28 @@ public class AppController {
         destinationLabelRain.setText("");
         destinationLabelWind.setText("");
     }
+
+    public void fillTilePanesWithData(ActionEvent actionEvent){
+        for (int i = 0; i < 3; i++) {
+            VBox[] tile = new VBox[20];
+            tile.getChildren.addAll();
+
+        }
+
+
+
+       /* Tile[] weatherTile = new Tile[40];
+        for (int i = 0; i < 3; i++) {
+            weatherTile[i] = new Tile ("20:", "1", "10d.png");
+            topTilePane.getChildren().add(weatherTile[i]);
+        } */
+
+     /*   Button[] guzik = new Button[3];
+        for (int i = 0; i < 3; i++) {
+            guzik[i] = new Button ("butt" + Integer.toString(i));
+            topTilePane.getChildren().add(guzik[i]);
+        } */
+    }
+
 }
 

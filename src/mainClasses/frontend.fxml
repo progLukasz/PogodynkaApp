@@ -37,12 +37,12 @@
       </VBox>
    </right>
    <top>
-      <TilePane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <TilePane fx:id="topTilePane" prefColumns="20" prefHeight="200.0" prefRows="2" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </top>
    <bottom>
-      <TilePane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+      <TilePane fx:id="bottomTilePane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </bottom>
    <center>
-      <Button mnemonicParsing="false" onAction="#displayWeatherData" text="Button" BorderPane.alignment="CENTER" />
+      <Button mnemonicParsing="false" onAction="#fillTilePanesWithData" text="Button" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
