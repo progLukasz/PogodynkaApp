@@ -33,7 +33,7 @@ public class ParsedForecast {
     private float windSpeed;
     private float windDegree;
 
-    private static List<String> weatherDataList;
+    private List<String> weatherDataList;
 
     public ParsedForecast(String weatherData) {
 
@@ -62,7 +62,7 @@ public class ParsedForecast {
     }
 
 
-    protected static List<String> splitDataIntoList (String data, String delims){
+    protected List<String> splitDataIntoList (String data, String delims){
 
         String[] rawSplitData = data.split(delims);
         List<String> clearedWeatherData = new ArrayList<String>(Arrays.asList(rawSplitData));
@@ -71,7 +71,7 @@ public class ParsedForecast {
         return clearedWeatherData;
     }
 
-    protected static <T> T weatherSingleDataFetcher (List<T> list, String keyword){
+    protected <T> T weatherSingleDataFetcher (List<T> list, String keyword){
         int index = list.indexOf(keyword);
         T data = list.get(index + 1);
 

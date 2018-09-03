@@ -7,7 +7,7 @@ import java.net.URLConnection;
 
 public class WeatherQueryResult {
 
-    private static String weatherData;
+    private String weatherData;
 
     final static String url1 = "https://api.openweathermap.org/data/2.5/forecast?q=";
     final static String url2 = "&appid=";
@@ -20,12 +20,12 @@ public class WeatherQueryResult {
         this.weatherData = this.getUrlContents(this.createUrlAddress(cityName, apiID));
     }
 
-    private static String createUrlAddress(String cityName, String apiID) {
+    private String createUrlAddress(String cityName, String apiID) {
         String url = url1 + cityName + url2 + apiID + url3;
         return url;
     }
 
-    private static String getUrlContents(String url) throws RuntimeException {
+    private String getUrlContents(String url) throws RuntimeException {
         StringBuilder content = new StringBuilder();
 
         try{
@@ -47,7 +47,7 @@ public class WeatherQueryResult {
         return content.toString();
     }
 
-    public static String getWeatherData() { return weatherData; }
+    public String getWeatherData() { return weatherData; }
 
     public String getCity() {
         return city;
