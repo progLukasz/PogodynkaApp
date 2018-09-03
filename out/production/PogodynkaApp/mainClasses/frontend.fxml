@@ -1,48 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.TilePane?>
-<?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1000.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mainClasses.AppController">
-   <left>
-      <VBox prefHeight="200.0" prefWidth="300.0" spacing="10.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="homeLabelCity" text="Miasto: " />
-            <Label fx:id="homeLabelDate" text="Data:" />
-            <Label fx:id="homeLabelTime" text="Czas:" />
-            <ImageView fx:id="homeIVWeather" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="homeLabelWeather" text="Pogoda: " />
-            <Label fx:id="homeLabelClouds" text="Zachmurzenie:" />
-            <Label fx:id="homeLabelRain" text="Opady:" />
-            <Label fx:id="homeLabelWind" text="Wiatr:" />
-         </children>
-      </VBox>
-   </left>
-   <right>
-      <VBox prefHeight="200.0" prefWidth="300.0" spacing="10.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label fx:id="destinationLabelCity" text="Miasto:" />
-            <Label fx:id="destinationLabelDate" text="Data:" />
-            <Label fx:id="destinationLabelTime" text="Czas:" />
-            <ImageView fx:id="destinationIVWeather" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
-            <Label fx:id="destinationLabelWeather" text="Pogoda:" />
-            <Label fx:id="destinationLabelClouds" text="Zachmurzenie:" />
-            <Label fx:id="destinationLabelRain" text="Opady:" />
-            <Label fx:id="destinationLabelWind" text="Wiatr:" />
-         </children>
-      </VBox>
-   </right>
-   <top>
-      <TilePane fx:id="topTilePane" prefColumns="20" prefHeight="200.0" prefRows="2" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </top>
-   <bottom>
-      <TilePane fx:id="bottomTilePane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-   </bottom>
-   <center>
-      <Button mnemonicParsing="false" onAction="#fillTilePanesWithData" text="Button" BorderPane.alignment="CENTER" />
-   </center>
-</BorderPane>
+
+<BorderPane fx:id="mainPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+            prefHeight="900.0"
+             prefWidth="1200.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" />

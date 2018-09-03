@@ -13,5 +13,10 @@ public class FiveDaysWeather {
             weatherForThreeHours[i] = new ParsedForecast(threeHoursForecasts[i + 1]);
          }
     }
+
+    public int getWeatherArrayCount(){
+        return weatherForThreeHours.length;
+    }
+
     public ParsedForecast getWeatherForThreeHours(int index) { return weatherForThreeHours[index]; }
 }
