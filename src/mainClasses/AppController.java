@@ -13,7 +13,7 @@ public class AppController {
         WeatherQueryResult weatherHere = new WeatherQueryResult("Leszno", "6a9f0069bab2b2553d52eab3c86b66f4");
         if (new OtherMethods().splitAndCheckWeatherData(weatherHere)) {
             weatherForHomeTown = new FiveDaysWeather(weatherHere.getWeatherData());
-            WeatherPane homeTown = new WeatherPane("Leszno", weatherForHomeTown, 2);
+            WeatherPane homeTown = new WeatherPane("Leszno", weatherForHomeTown, "qwqwqwqw");
 
         } else {
             System.out.println("NOK");

@@ -20,21 +20,30 @@ public class WeatherPane extends Pane {
 
     private VBox container;
 
-    public WeatherPane(String city, FiveDaysWeather weather,int i) {
-        updateWeatherData(city, weather, i);
+    public WeatherPane(String city, FiveDaysWeather weather, String date) {
+        updateWeatherData(city, weather, date);
     }
 
-    public void updateWeatherData (String city, FiveDaysWeather weather,int i){
+
+    public void updateWeatherData (String city, FiveDaysWeather weather, String date){
+        int requestedDateIndex = 0;
+        for (int i = 0; i < weather.getWeatherArrayCount(); i++){
+            String w = weather.getWeatherForThreeHours(i).getDateAndTime();
+            if (w == date){
+                requestedDateIndex = i;
+                break;
+            }
+        }
         this.labelCity = new Label(city);
-        this.labelDate = new Label("Data: " + weather.getWeatherForThreeHours(i).getDate());
-        this.labelTime = new Label("Czas: " + weather.getWeatherForThreeHours(i).getTime());
-        Image weatherImage = new Image("http://openweathermap.org/img/w/" + weather.getWeatherForThreeHours(i)
+        this.labelDate = new Label("Data: " + weather.getWeatherForThreeHours(requestedDateIndex).getDate());
+        this.labelTime = new Label("Czas: " + weather.getWeatherForThreeHours(requestedDateIndex).getTime());
+        Image weatherImage = new Image("http://openweathermap.org/img/w/" + weather.getWeatherForThreeHours(requestedDateIndex)
                 .getWeatherIcon() + ".png");
         this.iVWeather = new ImageView(weatherImage);
-        this.labelWeather = new Label("Pogoda: " + weather.getWeatherForThreeHours(i).getMain());
-        this.labelClouds = new Label("Zachmurzenie: " + weather.getWeatherForThreeHours(i).getClouds());
-        this.labelTemp = new Label("Temperatura: " + weather.getWeatherForThreeHours(i).getTemperature());
-        this.labelWind = new Label("Prędkość wiatru: " + weather.getWeatherForThreeHours(i).getWindSpeed());
+        this.labelWeather = new Label("Pogoda: " + weather.getWeatherForThreeHours(requestedDateIndex).getMain());
+        this.labelClouds = new Label("Zachmurzenie: " + weather.getWeatherForThreeHours(requestedDateIndex).getClouds());
+        this.labelTemp = new Label("Temperatura: " + weather.getWeatherForThreeHours(requestedDateIndex).getTemperature());
+        this.labelWind = new Label("Prędkość wiatru: " + weather.getWeatherForThreeHours(requestedDateIndex).getWindSpeed());
         container = new VBox();
         this.container.getChildren().addAll(labelCity, labelDate, labelTime, labelWeather, iVWeather, labelClouds,
                 labelTemp, labelWind);

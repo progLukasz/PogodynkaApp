@@ -27,7 +27,7 @@ public class Main extends Application {
 
         String home = "Leszno";
         String destination = "Madrid";
-
+        String prevDate = new String();
 
         WeatherQueryResult weatherHere = new WeatherQueryResult(home, "6a9f0069bab2b2553d52eab3c86b66f4");
 
@@ -42,26 +42,26 @@ public class Main extends Application {
             BorderPane mainPane = new BorderPane();
             mainPane.setPrefSize(1200, 900);
 
-
-            WeatherPane homeTown = new WeatherPane(home,  weatherForHomeTown, 0);
-            WeatherPane destinationTown = new WeatherPane(destination, weatherForDestinationTown, 0);
-
-            mainPane.setLeft(homeTown.getWeatherData());
-            mainPane.setRight(destinationTown.getWeatherData());
-            mainPane.setCenter(addGridPane());
-
+            WeatherPane homeTown = new WeatherPane(home,  weatherForHomeTown, weatherForHomeTown
+                    .getWeatherForThreeHours(0).getDateAndTime());
+            WeatherPane destinationTown = new WeatherPane(destination, weatherForDestinationTown,
+                    weatherForDestinationTown.getWeatherForThreeHours(0).getDateAndTime());
 
             TitledPane t1 = new TitledPane("Temperatura", new OtherMethods().addTemperatureChart(home, destination,
-                    weatherForHomeTown, weatherForDestinationTown));
+                    weatherForHomeTown, weatherForDestinationTown, homeTown, destinationTown, mainPane));
             TitledPane t2 = new TitledPane("Zachmurzenie", new OtherMethods().addCloudsChart(home, destination,
                     weatherForHomeTown, weatherForDestinationTown));
             TitledPane t3 = new TitledPane("Wiatr", new OtherMethods().addTWindChart(home, destination,
                     weatherForHomeTown, weatherForDestinationTown));
             Accordion accordion = new Accordion();
             accordion.getPanes().addAll(t1, t2, t3);
-
             mainPane.setTop(accordion);
 
+            mainPane.setCenter(addGridPane());
+
+
+            mainPane.setLeft(homeTown.getWeatherData());
+            mainPane.setRight(destinationTown.getWeatherData());
 
             Scene scene = new Scene(mainPane);
             primaryStage.setScene(scene);

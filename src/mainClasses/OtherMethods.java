@@ -1,8 +1,13 @@
 package mainClasses;
 
 import javafx.scene.chart.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 
 public class OtherMethods {
+
+    private String selectedDateToBeDisplayed;
+    private boolean dataChangeRequest;
 
     public boolean splitAndCheckWeatherData (WeatherQueryResult weatherData) {
         String weatherDataS = weatherData.getWeatherData();
@@ -10,25 +15,29 @@ public class OtherMethods {
     }
 
     public AreaChart addTemperatureChart(String cityHome, String cityDest, FiveDaysWeather
-            weatherDataHome, FiveDaysWeather weatherDataDest) {
+            weatherDataHome, FiveDaysWeather weatherDataDest, WeatherPane leftPane, WeatherPane rightPane,  BorderPane
+            mainPane) {
         CategoryAxis xAxis = new CategoryAxis();
         NumberAxis yAxis = new NumberAxis();
         AreaChart tempChart = new AreaChart<String,Number>(xAxis, yAxis);
         tempChart.setTitle("Temperatura");
+       // tempChart.setStyle("-fx-background-color: #ff0000;");
         XYChart.Series seriesTempHome = new XYChart.Series();
         XYChart.Series seriesTempDest = new XYChart.Series();
         seriesTempHome.setName(cityHome);
         seriesTempDest.setName(cityDest);
         tempChart.getData().addAll(seriesTempHome, seriesTempDest);
         for (int i = 0; i < weatherDataHome.getWeatherArrayCount(); i++) {
-            XYChart.Data<String, Number> data1 = new XYChart.Data<>(weatherDataHome.getWeatherForThreeHours
+            XYChart.Data<String, Number> dataHomeCity = new XYChart.Data<>(weatherDataHome.getWeatherForThreeHours
                     (i).getDateAndTime(), weatherDataHome.getWeatherForThreeHours(i).getTemperature());
-            seriesTempHome.getData().add(data1);
-
-            data1.getNode().setOnMouseClicked(e ->
-                    System.out.printf("Click on data [%s, %b]%n", data1.getXValue(), data1.getYValue()));
-            seriesTempDest.getData().add(new XYChart.Data<>(weatherDataDest.getWeatherForThreeHours
-                    (i).getDateAndTime(), weatherDataDest.getWeatherForThreeHours(i).getTemperature()));
+            seriesTempHome.getData().add(dataHomeCity);
+            dataHomeCity.getNode().setOnMouseClicked(e ->
+                            updateWeatherDetailsLeft(cityHome, weatherDataHome, dataHomeCity, leftPane, mainPane));
+            XYChart.Data<String, Number> dataDestCity = new XYChart.Data<>(weatherDataDest.getWeatherForThreeHours
+                    (i).getDateAndTime(), weatherDataDest.getWeatherForThreeHours(i).getTemperature());
+            seriesTempDest.getData().add(dataDestCity);
+            dataDestCity.getNode().setOnMouseClicked(e ->
+                    updateWeatherDetailsRight(cityHome, weatherDataHome, dataHomeCity, rightPane, mainPane));
         }
         return tempChart;
     }
@@ -39,7 +48,6 @@ public class OtherMethods {
         NumberAxis yAxis = new NumberAxis();
         AreaChart tempChart = new AreaChart<String,Number>(xAxis, yAxis);
         tempChart.setTitle("Zachmurzenie");
-        tempChart.setStyle("-fx-background-radius: 30px;");
         XYChart.Series seriesTempHome = new XYChart.Series();
         XYChart.Series seriesTempDest = new XYChart.Series();
         seriesTempHome.setName(cityHome);
@@ -74,4 +82,18 @@ public class OtherMethods {
         return tempChart;
     }
 
+    public void updateWeatherDetailsLeft(String city, FiveDaysWeather weather, XYChart.Data<String, Number> date,
+                                      WeatherPane pane, BorderPane bPane){
+        pane.updateWeatherData(city, weather, date.getXValue());
+        bPane.setLeft(pane.getWeatherData());
+    }
+    public void updateWeatherDetailsRight(String city, FiveDaysWeather weather, XYChart.Data<String, Number> date,
+                                         WeatherPane pane, BorderPane bPane){
+        pane.updateWeatherData(city, weather, date.getXValue());
+        bPane.setRight(pane.getWeatherData());
+    }
+
+    public String selectedDateToBeDisplayed() {
+        return selectedDateToBeDisplayed;
+    }
 }
