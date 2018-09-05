@@ -11,30 +11,21 @@ import java.io.File;
 
 public class CentralPane extends GridPane {
 
-    public Button firstDayButton;
-    public Button secondDayButton;
-    public Button thirdDayButton;
-    public Button forthDayButton;
-    public Button fifthDayButton;
+
     private VBox top;
     private VBox middLeft;
     private VBox center;
     private VBox middRight;
     private VBox bottom;
 
-    public CentralPane(Button firstDayButton, Button secondDayButton, Button thirdDayButton, Button forthDayButton, Button fifthDayButton) {
-        this.firstDayButton = firstDayButton;
-        this.secondDayButton = secondDayButton;
-        this.thirdDayButton = thirdDayButton;
-        this.forthDayButton = forthDayButton;
-        this.fifthDayButton = fifthDayButton;
+    public CentralPane() {
+
         this.top = new VBox();
         this.middLeft = new VBox();
         this.center = new VBox();
         this.middRight = new VBox();
         this.bottom = new VBox();
-        HBox hbox = new HBox(this.firstDayButton, this.secondDayButton, this.thirdDayButton,
-                this.forthDayButton, this.fifthDayButton);
+        HBox hbox = new HBox();
         top.getChildren().add(hbox);
         File file = new File("img/vs-icon.jpg");
         Image vsImage = new Image(file.toURI().toString());

@@ -2,98 +2,77 @@ package mainClasses;
 
 import javafx.scene.chart.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 
 public class OtherMethods {
 
-    private String selectedDateToBeDisplayed;
-    private boolean dataChangeRequest;
 
     public boolean splitAndCheckWeatherData (WeatherQueryResult weatherData) {
         String weatherDataS = weatherData.getWeatherData();
         return (!weatherDataS.regionMatches(0, "Error", 0, 5));
     }
 
-    public AreaChart addTemperatureChart(String cityHome, String cityDest, FiveDaysWeather
+    public AreaChart addChart(String displayedData, String cityHome, String cityDest, FiveDaysWeather
             weatherDataHome, FiveDaysWeather weatherDataDest, WeatherPane leftPane, WeatherPane rightPane,  BorderPane
-            mainPane) {
-        CategoryAxis xAxis = new CategoryAxis();
-        NumberAxis yAxis = new NumberAxis();
-        AreaChart tempChart = new AreaChart<String,Number>(xAxis, yAxis);
-        tempChart.setTitle("Temperatura");
-       // tempChart.setStyle("-fx-background-color: #ff0000;");
-        XYChart.Series seriesTempHome = new XYChart.Series();
-        XYChart.Series seriesTempDest = new XYChart.Series();
-        seriesTempHome.setName(cityHome);
-        seriesTempDest.setName(cityDest);
-        tempChart.getData().addAll(seriesTempHome, seriesTempDest);
-        for (int i = 0; i < weatherDataHome.getWeatherArrayCount(); i++) {
-            XYChart.Data<String, Number> dataHomeCity = new XYChart.Data<>(weatherDataHome.getWeatherForThreeHours
-                    (i).getDateAndTime(), weatherDataHome.getWeatherForThreeHours(i).getTemperature());
-            seriesTempHome.getData().add(dataHomeCity);
-            dataHomeCity.getNode().setOnMouseClicked(e ->
-                            updateWeatherDetailsLeft(cityHome, weatherDataHome, dataHomeCity, leftPane, mainPane));
-            XYChart.Data<String, Number> dataDestCity = new XYChart.Data<>(weatherDataDest.getWeatherForThreeHours
-                    (i).getDateAndTime(), weatherDataDest.getWeatherForThreeHours(i).getTemperature());
-            seriesTempDest.getData().add(dataDestCity);
-            dataDestCity.getNode().setOnMouseClicked(e ->
-                    updateWeatherDetailsRight(cityHome, weatherDataHome, dataHomeCity, rightPane, mainPane));
+                                      mainPane) {
+        Float tempArrayHome[] = new Float[weatherDataHome.getWeatherArrayCount()];
+        Float tempArrayDest[] = new Float[weatherDataHome.getWeatherArrayCount()];
+
+        switch (displayedData) {
+            case "Temperatura":
+                for (int i = 0; i < weatherDataHome.getWeatherArrayCount(); i++) {
+                    tempArrayHome[i] = weatherDataHome.getWeatherForThreeHours(i).getTemperature();
+                    tempArrayDest[i] = weatherDataDest.getWeatherForThreeHours(i).getTemperature();
+                }
+                break;
+            case "Zachmurzenie":
+                for (int i = 0; i < weatherDataHome.getWeatherArrayCount(); i++) {
+                    tempArrayHome[i] = (float) weatherDataHome.getWeatherForThreeHours(i).getClouds();
+                    tempArrayDest[i] = (float) weatherDataDest.getWeatherForThreeHours(i).getClouds();
+                }
+                break;
+            case "Wiatr":
+                for (int i = 0; i < weatherDataHome.getWeatherArrayCount(); i++) {
+                    tempArrayHome[i] = weatherDataHome.getWeatherForThreeHours(i).getWindSpeed();
+                    tempArrayDest[i] = weatherDataDest.getWeatherForThreeHours(i).getWindSpeed();
+                }
+                break;
         }
-        return tempChart;
-    }
-
-    public AreaChart addCloudsChart(String cityHome, String cityDest, FiveDaysWeather
-            weatherDataHome, FiveDaysWeather weatherDataDest) {
-        CategoryAxis xAxis = new CategoryAxis();
-        NumberAxis yAxis = new NumberAxis();
-        AreaChart tempChart = new AreaChart<String,Number>(xAxis, yAxis);
-        tempChart.setTitle("Zachmurzenie");
-        XYChart.Series seriesTempHome = new XYChart.Series();
-        XYChart.Series seriesTempDest = new XYChart.Series();
-        seriesTempHome.setName(cityHome);
-        seriesTempDest.setName(cityDest);
-        for (int i = 0; i < weatherDataHome.getWeatherArrayCount(); i++) {
-            seriesTempHome.getData().add(new XYChart.Data<>(weatherDataHome.getWeatherForThreeHours(i)
-                    .getDateAndTime(), weatherDataHome.getWeatherForThreeHours(i).getClouds()));
-            seriesTempDest.getData().add(new XYChart.Data<>(weatherDataDest.getWeatherForThreeHours(i).getDateAndTime()
-                    , weatherDataDest.getWeatherForThreeHours(i).getClouds()));
+                CategoryAxis xAxis = new CategoryAxis();
+                NumberAxis yAxis = new NumberAxis();
+                AreaChart tempChart = new AreaChart<String, Number>(xAxis, yAxis);
+                tempChart.setTitle(displayedData);
+                // tempChart.setStyle("-fx-background-color: #ff0000;");
+                XYChart.Series seriesTempHome = new XYChart.Series();
+                XYChart.Series seriesTempDest = new XYChart.Series();
+                seriesTempHome.setName(cityHome);
+                seriesTempDest.setName(cityDest);
+                tempChart.getData().addAll(seriesTempHome, seriesTempDest);
+                for (int i = 0; i < weatherDataHome.getWeatherArrayCount(); i++) {
+                    XYChart.Data<String, Number> dataHomeCity = new XYChart.Data<>(weatherDataHome.getWeatherForThreeHours
+                            (i).getDateAndTime(), tempArrayHome[i]);
+                    seriesTempHome.getData().add(dataHomeCity);
+                    XYChart.Data<String, Number> dataDestCity = new XYChart.Data<>(weatherDataDest.getWeatherForThreeHours
+                            (i).getDateAndTime(), tempArrayDest[i]);
+                    seriesTempDest.getData().add(dataDestCity);
+                    dataHomeCity.getNode().setOnMouseClicked(e ->
+                            updateWeatherDetails(cityHome, cityDest, weatherDataHome, weatherDataDest,
+                                    dataHomeCity, dataDestCity, leftPane, rightPane, mainPane));
+                    dataDestCity.getNode().setOnMouseClicked(e ->
+                            updateWeatherDetails(cityHome, cityDest, weatherDataHome, weatherDataDest,
+                                    dataHomeCity, dataDestCity, leftPane, rightPane, mainPane));
+                }
+                return tempChart;
         }
-        tempChart.getData().addAll(seriesTempHome, seriesTempDest);
-        return tempChart;
+
+    public void updateWeatherDetails(String hCity, String dCity, FiveDaysWeather hWeather, FiveDaysWeather
+            dWeather, XYChart.Data<String, Number> hDate, XYChart.Data<String, Number> dDate,
+                                     WeatherPane hPane, WeatherPane dPane, BorderPane bPane){
+        hPane.updateWeatherData(hCity, hWeather, hDate.getXValue());
+        dPane.updateWeatherData(dCity, dWeather, dDate.getXValue());
+        bPane.setLeft(hPane.getWeatherData());
+        bPane.setRight(dPane.getWeatherData());
     }
 
-    public AreaChart addTWindChart(String cityHome, String cityDest, FiveDaysWeather
-            weatherDataHome, FiveDaysWeather weatherDataDest) {
-        CategoryAxis xAxis = new CategoryAxis();
-        NumberAxis yAxis = new NumberAxis();
-        AreaChart tempChart = new AreaChart<String,Number>(xAxis, yAxis);
-        tempChart.setTitle("Wiatr");
-        XYChart.Series seriesTempHome = new XYChart.Series();
-        XYChart.Series seriesTempDest = new XYChart.Series();
-        seriesTempHome.setName(cityHome);
-        seriesTempDest.setName(cityDest);
-        for (int i = 0; i < weatherDataHome.getWeatherArrayCount(); i++) {
-            seriesTempHome.getData().add(new XYChart.Data(weatherDataHome.getWeatherForThreeHours(i)
-                    .getDateAndTime(), weatherDataHome.getWeatherForThreeHours(i).getWindSpeed()));
-            seriesTempDest.getData().add(new XYChart.Data(weatherDataDest.getWeatherForThreeHours(i).getDateAndTime()
-                    , weatherDataDest.getWeatherForThreeHours(i).getWindSpeed()));
-        }
-        tempChart.getData().addAll(seriesTempHome, seriesTempDest);
-        return tempChart;
-    }
 
-    public void updateWeatherDetailsLeft(String city, FiveDaysWeather weather, XYChart.Data<String, Number> date,
-                                      WeatherPane pane, BorderPane bPane){
-        pane.updateWeatherData(city, weather, date.getXValue());
-        bPane.setLeft(pane.getWeatherData());
-    }
-    public void updateWeatherDetailsRight(String city, FiveDaysWeather weather, XYChart.Data<String, Number> date,
-                                         WeatherPane pane, BorderPane bPane){
-        pane.updateWeatherData(city, weather, date.getXValue());
-        bPane.setRight(pane.getWeatherData());
-    }
 
-    public String selectedDateToBeDisplayed() {
-        return selectedDateToBeDisplayed;
-    }
 }
