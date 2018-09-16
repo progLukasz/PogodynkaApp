@@ -1,61 +1,51 @@
 package mainClasses;
 
-import javafx.scene.image.Image;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-
-import java.io.File;
+import javafx.scene.layout.*;
 
 public class CentralPane extends VBox {
 
-    VBox topPane = new VBox();
-    VBox centerPane = new VBox();
-    VBox bottomPane = new VBox();
+    private VBox mainContainer;
+    private VBox topPane;
+    private Pane centerPane;
+    private VBox bottomPane;
 
+    private Label hintForUser;
+    public Button returnToTitleScreen;
 
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-    private VBox top;
-    private VBox middLeft;
-    private VBox center;
-    private VBox middRight;
-    private VBox bottom;
 
     public CentralPane() {
 
-        this.top = new VBox();
-        this.middLeft = new VBox();
-        this.center = new VBox();
-        this.middRight = new VBox();
-        this.bottom = new VBox();
-        HBox hbox = new HBox();
-        top.getChildren().add(hbox);
-        File file = new File("img/vs-icon.jpg");
-        Image vsImage = new Image(file.toURI().toString());
-        ImageView vs = new ImageView(vsImage);
-        vs.setFitHeight(200);
-        vs.setFitWidth(200);
-        center.getChildren().add(vs);
-        this.add(top, 0, 0,3,1);
-        this.add(middLeft,0,1,1,1);
-        this.add(center,1,1,1,1);
-        this.add(middRight,2,1,1,1);
-        this.add(bottom,0,2,3,1);
+        this.hintForUser = new Label("Rozwiń jedną z powyższych zakładek aby zobaczyć pogodę na kolejne dni.");
+        this.hintForUser.setWrapText(true);
+        this.hintForUser.getStyleClass().add("centerPaneTips_style");
+
+
+        this.returnToTitleScreen = new Button("powrót do wyboru miast");
+        this.topPane = new VBox(this.hintForUser);
+        this.topPane.getStyleClass().add("mainPane_style");
+        this.centerPane = new Pane();
+        this.bottomPane = new VBox(returnToTitleScreen);
+
+
+        mainContainer = new VBox(topPane, centerPane, bottomPane);
+
+        topPane.prefHeightProperty().bind(mainContainer.widthProperty().multiply(0.2));
+        centerPane.prefHeightProperty().bind(mainContainer.widthProperty().multiply(0.7));
+        bottomPane.prefHeightProperty().bind(mainContainer.widthProperty().multiply(0.1));
 
     }
 
-*/
+    public void setHintForUser(String hint) {
+        this.hintForUser.setText(hint);
+    }
+
+    public VBox getMainContainer() {
+        return mainContainer;
+    }
+
+
 }

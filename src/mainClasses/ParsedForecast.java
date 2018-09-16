@@ -33,6 +33,10 @@ public class ParsedForecast {
     private float windSpeed;
     private float windDegree;
 
+
+    private float latitude;
+    private float longitude;
+
     private List<String> weatherDataList;
 
     public ParsedForecast(String weatherData) {
@@ -59,6 +63,8 @@ public class ParsedForecast {
         this.clouds = Integer.parseInt(weatherSingleDataFetcher(weatherDataList, "all"));
         this.windSpeed = Float.parseFloat(weatherSingleDataFetcher(weatherDataList, "speed"));
         this.windDegree = Float.parseFloat(weatherSingleDataFetcher(weatherDataList, "deg"));
+        this.latitude = Float.parseFloat(weatherSingleDataFetcher(weatherDataList, "lat"));
+        this.longitude = Float.parseFloat(weatherSingleDataFetcher(weatherDataList, "lon"));
     }
 
 
@@ -167,4 +173,12 @@ public class ParsedForecast {
     }
 
     public void setCode(int code){ this.code = code;}
+
+    public float getLatitude() {
+        return latitude;
+    }
+
+    public float getLongitude() {
+        return longitude;
+    }
 }

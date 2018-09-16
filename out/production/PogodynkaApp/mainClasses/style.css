@@ -7,7 +7,7 @@
 /* Title app page */
 
 #titlePane_style{
-    -fx-background-color: #191970;
+    -fx-background-color: #483d8b;
     -fx-background-image: url("../../../../img/lightning.png");
 }
 
@@ -81,16 +81,11 @@
 /*   Main app page */
 
 #mainPane_style{
-    -fx-background-color: #191970;
+    -fx-background-color: #483d8b;
 }
 
 
-#mainCentralPane_style{
-    -fx-background-image: url("../../../../img/world.png");
-    -fx-background-size: cover;
-}
-
-.mainSidePane_style{
+.mainPane_style{
     -fx-padding: 20px;
     -fx-border-insets: 15px;
     -fx-background-insets: 15px;
@@ -118,6 +113,12 @@
     -fx-fill: white;
 }
 
+.centerPaneTips_style{
+    -fx-font-size: 16px;
+    -fx-padding: 10px;
+    -fx-text-fill: white;
+}
+
 /* accordion and chart formatting */
 .titled-pane .title {
     -fx-alignment: center-left;
@@ -126,7 +127,7 @@
     -fx-focus-color: #555555;
     -fx-font-size: 8pt;
     -fx-text-fill: white;
-    -fx-background-color: linear-gradient(#191970, #c6f9ff );
+    -fx-background-color: linear-gradient(#483d8b, #c6f9ff );
 }
 
 .titled-pane:expanded {
@@ -162,19 +163,19 @@
 }
 
 .chart-legend-item{
-    -fx-text-fill: #191970;
+    -fx-text-fill: #483d8b;
     -fx-font-family: 'Baloo Tammudu';
     -fx-font-size: 14px;
 }
 
 .chart-title {
-  -fx-text-fill: #191970;
+  -fx-text-fill: #483d8b;
   -fx-font-size: 24px;
   -fx-font-family: 'Baloo Tammudu';
 }
 
 .axis-label {
-  -fx-text-fill: #191970;
+  -fx-text-fill: #483d8b;
 }
 
 .chart-plot-background {
@@ -194,16 +195,16 @@
 
 .axis {
     -fx-font-size: 20px;
-    -fx-tick-label-fill: #191970;
+    -fx-tick-label-fill: #483d8b;
     -fx-font-family: 'Baloo Tammudu';
 }
 
 .axis-tick-mark {
-    -fx-stroke: #191970;
+    -fx-stroke: #483d8b;
     -fx-stroke-width: 1.5;
 }
 .axis-minor-tick-mark {
-    -fx-stroke: #191970;
+    -fx-stroke: #483d8b;
 }
 
 .chart-series-line {

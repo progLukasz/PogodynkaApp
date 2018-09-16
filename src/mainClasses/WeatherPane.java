@@ -52,7 +52,7 @@ public class WeatherPane extends Pane {
         this.iVWeather = new ImageView(weatherImage);
         HBox cityHB = new HBox(labelCity, iVWeather);
         labelCity.getStyleClass().add("sidePaneCity_style");
-        Text labelDateStaticText = new Text("Data:");
+        Text labelDateStaticText = new Text("Data: ");
         labelDateStaticText.getStyleClass().add("sidePaneDescription_style");
         this.labelDate = new Label(weather.getWeatherForThreeHours(requestedDateIndex).getDate());
         this.labelDate.getStyleClass().add("sidePaneData_style");

@@ -6,15 +6,9 @@ import javafx.scene.layout.VBox;
 
 class OtherMethods {
 
-
-    boolean splitAndCheckWeatherData(WeatherQueryResult weatherData) {
-        String weatherDataS = weatherData.getWeatherData();
-        return (!weatherDataS.regionMatches(0, "Error", 0, 5));
-    }
-
     AreaChart addChart(String displayedData, String cityHome, String cityDest, FiveDaysWeather
             weatherDataHome, FiveDaysWeather weatherDataDest, WeatherPane leftPane, WeatherPane rightPane, BorderPane
-                               mainPane) {
+                               mainPane, CentralPane centralPane) {
         Float tempArrayHome[] = new Float[weatherDataHome.getWeatherArrayCount()];
         Float tempArrayDest[] = new Float[weatherDataHome.getWeatherArrayCount()];
         String units = "";
@@ -60,10 +54,10 @@ class OtherMethods {
                     seriesTempDest.getData().add(dataDestCity);
                     dataHomeCity.getNode().setOnMouseClicked(e ->
                             updateWeatherDetails(cityHome, cityDest, weatherDataHome, weatherDataDest,
-                                    dataHomeCity, dataDestCity, leftPane, rightPane, mainPane));
+                                    dataHomeCity, dataDestCity, leftPane, rightPane, mainPane, centralPane));
                     dataDestCity.getNode().setOnMouseClicked(e ->
                             updateWeatherDetails(cityHome, cityDest, weatherDataHome, weatherDataDest,
-                                    dataHomeCity, dataDestCity, leftPane, rightPane, mainPane));
+                                    dataHomeCity, dataDestCity, leftPane, rightPane, mainPane, centralPane));
                 }
                 tempChart.applyCss();
                 return tempChart;
@@ -71,15 +65,17 @@ class OtherMethods {
 
     private void updateWeatherDetails(String hCity, String dCity, FiveDaysWeather hWeather, FiveDaysWeather
             dWeather, XYChart.Data<String, Number> hDate, XYChart.Data<String, Number> dDate,
-                                      WeatherPane hPane, WeatherPane dPane, BorderPane bPane){
+                                      WeatherPane hPane, WeatherPane dPane, BorderPane bPane, CentralPane centralPane){
         hPane.updateWeatherData(hCity, hWeather, hDate.getXValue());
         dPane.updateWeatherData(dCity, dWeather, dDate.getXValue());
         VBox homePane = new VBox(hPane.getWeatherData());
         VBox destPane = new VBox(dPane.getWeatherData());
         bPane.setLeft(homePane);
         bPane.setRight(destPane);
-        homePane.getStyleClass().add("mainSidePane_style");
-        destPane.getStyleClass().add("mainSidePane_style");
+        homePane.getStyleClass().add("mainPane_style");
+        destPane.getStyleClass().add("mainPane_style");
+        centralPane.setHintForUser("Zwiń zakładkę aby zobaczyć wszystkie szczegóły prognozy pogody.");
+
     }
 
     String weatherDescriptor(int weatherId){
