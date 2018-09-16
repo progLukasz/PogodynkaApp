@@ -4,9 +4,11 @@ package mainClasses;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 
 import java.io.File;
 
@@ -43,29 +45,66 @@ public class WeatherPane extends Pane {
                 break;
             }
         }
+
         this.labelCity = new Label(city);
-        this.labelDate = new Label("Data: " + weather.getWeatherForThreeHours(requestedDateIndex).getDate());
-        this.labelTime = new Label("Czas: " + weather.getWeatherForThreeHours(requestedDateIndex).getTime());
         Image weatherImage = new Image("http://openweathermap.org/img/w/" + weather.getWeatherForThreeHours(requestedDateIndex)
                 .getWeatherIcon() + ".png");
         this.iVWeather = new ImageView(weatherImage);
-        this.labelWeather = new Label("Pogoda: " + weather.getWeatherForThreeHours(requestedDateIndex).getMainDescription());
-        this.labelClouds = new Label("Zachmurzenie: " + weather.getWeatherForThreeHours(requestedDateIndex).getClouds());
-        this.labelHumidity = new Label ("Wilgotność: " + weather.getWeatherForThreeHours(requestedDateIndex)
-                .getHumidity());
-        this.labelTemp = new Label("Temperatura: " + weather.getWeatherForThreeHours(requestedDateIndex).getTemperature());
-        this.labelPressure = new Label ("Ciśnienie: " + weather.getWeatherForThreeHours(requestedDateIndex).getPressure
-                ());
-        this.labelWindSpeed = new Label("Prędkość wiatru: " + weather.getWeatherForThreeHours(requestedDateIndex)
-                .getWindSpeed());
+        HBox cityHB = new HBox(labelCity, iVWeather);
+        labelCity.getStyleClass().add("sidePaneCity_style");
+        Text labelDateStaticText = new Text("Data:");
+        labelDateStaticText.getStyleClass().add("sidePaneDescription_style");
+        this.labelDate = new Label(weather.getWeatherForThreeHours(requestedDateIndex).getDate());
+        this.labelDate.getStyleClass().add("sidePaneData_style");
+        HBox dateHB = new HBox(labelDateStaticText, labelDate);
+        Text labelTimeStaticText = new Text("Czas: ");
+        labelTimeStaticText.getStyleClass().add("sidePaneDescription_style");
+        this.labelTime = new Label(weather.getWeatherForThreeHours(requestedDateIndex).getTime());
+        this.labelTime.getStyleClass().add("sidePaneData_style");
+        HBox timeHB = new HBox(labelTimeStaticText, labelTime);
+        Text labelWeatherStaticText = new Text("Pogoda: ");
+        labelWeatherStaticText.getStyleClass().add("sidePaneDescription_style");
+        this.labelWeather = new Label( new OtherMethods().weatherDescriptor(weather.getWeatherForThreeHours
+                (requestedDateIndex).getWeatherId()));
+        this.labelWeather.getStyleClass().add("sidePaneData_style");
+        HBox weatherHB = new HBox(labelWeatherStaticText, labelWeather);
+        Text labelTempStaticText = new Text("Temperatura: ");
+        labelTempStaticText.getStyleClass().add("sidePaneDescription_style");
+        this.labelTemp = new Label(weather.getWeatherForThreeHours(requestedDateIndex).getTemperature() +
+                " °C");
+        this.labelTemp.getStyleClass().add("sidePaneData_style");
+        HBox tempHB = new HBox(labelTempStaticText, labelTemp);
+        Text labelCloudsStaticText = new Text("Zachmurzenie: ");
+        labelCloudsStaticText.getStyleClass().add("sidePaneDescription_style");
+        this.labelClouds = new Label(weather.getWeatherForThreeHours(requestedDateIndex).getClouds() + "%");
+        this.labelClouds.getStyleClass().add("sidePaneData_style");
+        HBox cloudsHB = new HBox(labelCloudsStaticText, labelClouds);
+        Text labelHumidityStaticText = new Text("Wilgotność: ");
+        labelHumidityStaticText.getStyleClass().add("sidePaneDescription_style");
+        this.labelHumidity = new Label (weather.getWeatherForThreeHours(requestedDateIndex)
+                .getHumidity() + "%");
+        this.labelHumidity.getStyleClass().add("sidePaneData_style");
+        HBox humidityHB = new HBox(labelHumidityStaticText, labelHumidity);
+        Text labelPressureStaticText = new Text("Ciśnienie: ");
+        labelPressureStaticText.getStyleClass().add("sidePaneDescription_style");
+        this.labelPressure = new Label (weather.getWeatherForThreeHours(requestedDateIndex).getPressure() + " hPa");
+        this.labelPressure.getStyleClass().add("sidePaneData_style");
+        HBox pressureHB = new HBox(labelPressureStaticText, labelPressure);
+        Text labelWindSpeedStaticText = new Text("Prędkość wiatru: ");
+        labelWindSpeedStaticText.getStyleClass().add("sidePaneDescription_style");
+        this.labelWindSpeed = new Label(weather.getWeatherForThreeHours(requestedDateIndex)
+                .getWindSpeed() + " m/sek");
+        this.labelWindSpeed.getStyleClass().add("sidePaneData_style");
+        HBox windSpeedHB = new HBox(labelWindSpeedStaticText, labelWindSpeed);
+        Text labelWindDirectionStaticText = new Text("Kierunek wiatru:");
+        labelWindDirectionStaticText.getStyleClass().add("sidePaneDescription_style");
         this.windDirection = weather.getWeatherForThreeHours(requestedDateIndex).getWindDegree();
-        File file = new File("img/compass_3.png");
+        File file = new File("img/windrose.png");
         Image northImage = new Image(file.toURI().toString());
         this.NESW = new ImageView(northImage);
         NESW.setFitWidth(200);
         NESW.setFitHeight(200);
-//      NESW.setStyle("-fx-background-color:transparent");
-        file = new File("img/arrow_blue.png");
+        file = new File("img/arrow.png");
         northImage = new Image(file.toURI().toString());
         this.windArrow = new ImageView(northImage);
         windArrow.setFitWidth(100);
@@ -75,8 +114,8 @@ public class WeatherPane extends Pane {
 
         container = new VBox();
 
-        this.container.getChildren().addAll(labelCity, labelDate, labelTime, labelWeather, iVWeather, labelClouds,
-                labelHumidity, labelTemp, labelPressure, labelWindSpeed, windPic);
+        this.container.getChildren().addAll(cityHB, dateHB, timeHB, weatherHB, tempHB, cloudsHB,
+                humidityHB, pressureHB, windSpeedHB, labelWindDirectionStaticText, windPic);
     }
 
     public VBox getWeatherData(){

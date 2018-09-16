@@ -23,7 +23,7 @@ public class ParsedForecast {
     private int humidity;
     private float tempDifference;
     // weather
-    private String weatherId;
+    private int weatherId;
     private String main;
     private String mainDescription;
     private String weatherIcon;
@@ -52,7 +52,7 @@ public class ParsedForecast {
         this.pressureGroundLevel = Float.parseFloat(weatherSingleDataFetcher(weatherDataList, "grnd_level"));
         this.humidity = Integer.parseInt(weatherSingleDataFetcher(weatherDataList, "humidity"));
         this.tempDifference = Float.parseFloat(weatherSingleDataFetcher(weatherDataList, "temp_kf"));
-        this.weatherId = weatherSingleDataFetcher(weatherDataList, "id");
+        this.weatherId = Integer.parseInt(weatherSingleDataFetcher(weatherDataList, "id"));
         this.main = weatherSingleDataFetcher(weatherDataList,"main");
         this.mainDescription = weatherSingleDataFetcher(weatherDataList,"description");
         this.weatherIcon = weatherSingleDataFetcher(weatherDataList,"icon");
@@ -138,7 +138,7 @@ public class ParsedForecast {
         return tempDifference;
     }
 
-    public String getWeatherId() {
+    public int getWeatherId() {
         return weatherId;
     }
 

@@ -1,6 +1,5 @@
 package mainClasses;
 
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -9,9 +8,26 @@ import javafx.scene.layout.VBox;
 
 import java.io.File;
 
-public class CentralPane extends GridPane {
+public class CentralPane extends VBox {
+
+    VBox topPane = new VBox();
+    VBox centerPane = new VBox();
+    VBox bottomPane = new VBox();
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+/*
     private VBox top;
     private VBox middLeft;
     private VBox center;
@@ -41,5 +57,5 @@ public class CentralPane extends GridPane {
 
     }
 
-
+*/
 }

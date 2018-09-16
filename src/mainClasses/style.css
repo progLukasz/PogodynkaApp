@@ -1,13 +1,230 @@
-.weatherTile_style {
-    -fx-border-color: blue;
-    -fx-border-insets: 5;
-    -fx-border-width: 1;
-    -fx-border-radius: 5;
-    -fx-border-style: solid;
-    -fx-font-size: 8pt;
-    -fx-hpos: center;
- }
 
- .chart_style {
-     -fx-background-radius: 30px;
- }
+@font-face {
+    font-family: Baloo Tammudu;
+    src: url('../../../../font/Baloo.ttf');
+}
+
+/* Title app page */
+
+#titlePane_style{
+    -fx-background-color: #191970;
+    -fx-background-image: url("../../../../img/lightning.png");
+}
+
+#appTitle_style{
+    -fx-font-size: 40px;
+    -fx-fill: white;
+    -fx-font-family: 'Baloo Tammudu';
+    -fx-effect: dropshadow( three-pass-box , rgba(0,255,255,0.5) , 5, 0.7 , 0 , 2);
+}
+
+#appSubtitle_style{
+    -fx-font-size: 20px;
+    -fx-fill: white;
+    -fx-font-family: 'Baloo Tammudu';
+}
+
+.button_style{
+
+    -fx-background-color:
+                #000000,
+                linear-gradient(#7ebcea, #2f4b8f),
+                linear-gradient(#426ab7, #263e75),
+                linear-gradient(#395cab, #223768);
+    -fx-background-insets: 0,1,4,5,6;
+    -fx-background-radius: 9,8,5,4,3;
+    -fx-padding: 5 10 5 10;
+    -fx-font-family: 'Baloo Tammudu';
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,255,255,0.2) , 1, 0.5 , 0 , 1);
+}
+.button_style Text {
+    -fx-effect: dropshadow( one-pass-box , black , 1, 0.5 , 0 , -1 );
+}
+
+.titleNode_style{
+    -fx-alignment: center;
+}
+
+#titleNodeTop_style{
+    -fx-padding: 30px 0px 0px 30px;
+}
+
+#titleNodeCenter_style{
+    -fx-padding: 0px 300px 0px 300px;
+    -fx-spacing: 10px;
+}
+
+.errorMessage_style{
+    -fx-font-size: 16px;
+    -fx-text-alignment: center;
+    -fx-font-family: 'Baloo Tammudu';
+    -fx-padding: 20px;
+    -fx-border-insets: 15px;
+    -fx-background-insets: 15px;
+
+    -fx-background-radius: 2;
+}
+
+#errorMessage_info {
+     -fx-text-fill: white;
+     -fx-background-color: rgba(206, 206, 206, 0.4);
+}
+
+#errorMessage_error {
+    -fx-text-fill: red;
+    -fx-background-color: rgba(206, 206, 206, 0.6);
+}
+
+/*   Main app page */
+
+#mainPane_style{
+    -fx-background-color: #191970;
+}
+
+
+#mainCentralPane_style{
+    -fx-background-image: url("../../../../img/world.png");
+    -fx-background-size: cover;
+}
+
+.mainSidePane_style{
+    -fx-padding: 20px;
+    -fx-border-insets: 15px;
+    -fx-background-insets: 15px;
+    -fx-background-color: rgba(206, 206, 206, 0.4);
+    -fx-background-radius: 2;
+    -fx-fill: white;
+    -fx-font-family: 'Baloo Tammudu';
+    -fx-min-width: 300px;
+}
+
+.sidePaneCity_style{
+    -fx-font-size: 16px;
+    -fx-padding: 0px 0px 0px 5px;
+    -fx-fill: white;
+}
+
+.sidePaneDescription_style{
+    -fx-font-size: 14px;
+    -fx-padding: 0px 0px 0px 5px;
+    -fx-fill: white;
+}
+
+.sidePaneData_style{
+    -fx-font-size: 16px;
+    -fx-fill: white;
+}
+
+/* accordion and chart formatting */
+.titled-pane .title {
+    -fx-alignment: center-left;
+    -fx-font-family: 'Baloo Tammudu';
+    -fx-cursor: "hand";
+    -fx-focus-color: #555555;
+    -fx-font-size: 8pt;
+    -fx-text-fill: white;
+    -fx-background-color: linear-gradient(#191970, #c6f9ff );
+}
+
+.titled-pane:expanded {
+    -fx-text-fill: white;
+}
+
+.titled-pane:expanded > .title {
+    -fx-base: #555555;
+    -fx-text-fill: white;
+}
+
+.titled-pane:hover > .title {
+    -fx-base: #555555;
+}
+
+.titled-pane:hover {
+    -fx-text-fill: white;
+}
+
+.titled-pane .arrow {
+    -fx-opacity: 1;
+}
+
+
+.chart {
+    -fx-padding: 0px 30px 0px 30px;
+    -fx-background-image: url("../../../../img/pattern.png");
+}
+
+.chart-legend {
+   -fx-background-color:  transparent;
+   -fx-padding: 20px;
+}
+
+.chart-legend-item{
+    -fx-text-fill: #191970;
+    -fx-font-family: 'Baloo Tammudu';
+    -fx-font-size: 14px;
+}
+
+.chart-title {
+  -fx-text-fill: #191970;
+  -fx-font-size: 24px;
+  -fx-font-family: 'Baloo Tammudu';
+}
+
+.axis-label {
+  -fx-text-fill: #191970;
+}
+
+.chart-plot-background {
+    -fx-background-color: transparent;
+}
+.chart-vertical-grid-lines {
+    -fx-stroke: #00c7ff;
+}
+.chart-horizontal-grid-lines {
+    -fx-stroke: #00c7ff;
+}
+.chart-alternative-row-fill {
+    -fx-fill: transparent;
+    -fx-stroke: transparent;
+    -fx-stroke-width: 0;
+}
+
+.axis {
+    -fx-font-size: 20px;
+    -fx-tick-label-fill: #191970;
+    -fx-font-family: 'Baloo Tammudu';
+}
+
+.axis-tick-mark {
+    -fx-stroke: #191970;
+    -fx-stroke-width: 1.5;
+}
+.axis-minor-tick-mark {
+    -fx-stroke: #191970;
+}
+
+.chart-series-line {
+    -fx-stroke-width: 2px;
+    -fx-effect: null;
+}
+
+.default-color0.chart-area-symbol { -fx-background-color: #e900ff, #f7a0ff;
+                                    -fx-padding: 5px 5px 5px 5px;
+                                    -fx-cursor: "hand";
+                                  }
+.default-color1.chart-area-symbol { -fx-background-color: #00ff11, #91ff98;
+                                    -fx-padding: 5px 5px 5px 5px;
+                                    -fx-cursor: "hand";
+                                  }
+
+.default-color0.chart-series-area-line { -fx-stroke: #e900ff; }
+.default-color1.chart-series-area-line { -fx-stroke: #00ff11; }
+
+.default-color0.chart-series-area-fill { -fx-fill: #e900ffaa; }
+.default-color1.chart-series-area-fill { -fx-fill: #00ff1177; }
+
+.default-color0.chart-line-symbol { -fx-background-color: #e900ff, white; }
+.default-color1.chart-line-symbol { -fx-background-color: #00ff11, white; }
