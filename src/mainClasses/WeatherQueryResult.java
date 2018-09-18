@@ -48,8 +48,4 @@ public class WeatherQueryResult {
     }
 
     public String getWeatherData() { return weatherData; }
-
-    public String getCity() {
-        return city;
-    }
 }

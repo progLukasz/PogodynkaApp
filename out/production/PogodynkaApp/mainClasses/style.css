@@ -24,24 +24,42 @@
     -fx-font-family: 'Baloo Tammudu';
 }
 
+.textField_style{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,255,255,0.5) , 10, 0.7 , 0 , 1);
+    -fx-background-color: #ffffff;
+    -fx-font-size: 16px;
+}
+
+.textField_style:focused{
+    -fx-effect: dropshadow( three-pass-box , rgba(0,255,255,0.5) , 10, 0.7 , 0 , 1);
+}
+
+.textFieldHighlighted_style{
+    -fx-effect: dropshadow( three-pass-box , rgba(255,255,0,0.5) , 10, 0.7 , 0 , 0);
+    -fx-background-color: #ffff00;
+}
+
+
 .button_style{
 
-    -fx-background-color:
-                #000000,
-                linear-gradient(#7ebcea, #2f4b8f),
-                linear-gradient(#426ab7, #263e75),
-                linear-gradient(#395cab, #223768);
-    -fx-background-insets: 0,1,4,5,6;
-    -fx-background-radius: 9,8,5,4,3;
-    -fx-padding: 5 10 5 10;
+    -fx-background-color: linear-gradient(#483d8b, #415b93);
+    -fx-background-radius: 3;
+    -fx-padding: 0px 10px 0px 10px;
     -fx-font-family: 'Baloo Tammudu';
     -fx-font-size: 14px;
-    -fx-font-weight: bold;
     -fx-text-fill: white;
-    -fx-effect: dropshadow( three-pass-box , rgba(0,255,255,0.2) , 1, 0.5 , 0 , 1);
+    -fx-effect: dropshadow( three-pass-box , rgba(0,255,255,0.5) , 5, 0.7 , 0 , 2);
 }
-.button_style Text {
-    -fx-effect: dropshadow( one-pass-box , black , 1, 0.5 , 0 , -1 );
+
+.button_style:hover{
+    -fx-cursor: "hand";
+    -fx-background-color: linear-gradient(#6556c4, #6892ed);
+}
+}
+
+.button_style:pressed{
+    -fx-cursor: "hand";
+    -fx-effect: dropshadow( three-pass-box , rgba(0,255,255,0.5) , 2, 0.7 , 0 , 1);
 }
 
 .titleNode_style{
@@ -55,6 +73,10 @@
 #titleNodeCenter_style{
     -fx-padding: 0px 300px 0px 300px;
     -fx-spacing: 10px;
+}
+
+#titleNodeBottom_style{
+    -fx-min-height: 160px;
 }
 
 .errorMessage_style{
@@ -90,7 +112,7 @@
     -fx-border-insets: 15px;
     -fx-background-insets: 15px;
     -fx-background-color: rgba(206, 206, 206, 0.4);
-    -fx-background-radius: 2;
+    -fx-background-radius: 3;
     -fx-fill: white;
     -fx-font-family: 'Baloo Tammudu';
     -fx-min-width: 300px;

@@ -6,6 +6,7 @@ public class FiveDaysWeather {
     private ParsedForecast[] weatherForThreeHours = new ParsedForecast[40];
     private int weatherArrayLength;
 
+
     public FiveDaysWeather(String weatherData ) {
 
         String threeHoursForecasts[] = weatherData.split("dt\":");

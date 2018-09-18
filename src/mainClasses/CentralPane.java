@@ -1,9 +1,7 @@
 package mainClasses;
 
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 public class CentralPane extends VBox {
@@ -22,12 +20,15 @@ public class CentralPane extends VBox {
         this.hintForUser = new Label("Rozwiń jedną z powyższych zakładek aby zobaczyć pogodę na kolejne dni.");
         this.hintForUser.setWrapText(true);
         this.hintForUser.getStyleClass().add("centerPaneTips_style");
+        this.topPane = new VBox(this.hintForUser);
+        this.topPane.getStyleClass().add("mainPane_style");
+
+
+        this.centerPane = new Pane();
 
 
         this.returnToTitleScreen = new Button("powrót do wyboru miast");
-        this.topPane = new VBox(this.hintForUser);
-        this.topPane.getStyleClass().add("mainPane_style");
-        this.centerPane = new Pane();
+        returnToTitleScreen.getStyleClass().add("button_style");
         this.bottomPane = new VBox(returnToTitleScreen);
 
 
@@ -41,7 +42,21 @@ public class CentralPane extends VBox {
 
     public void setHintForUser(String hint) {
         this.hintForUser.setText(hint);
+        this.hintForUser.setWrapText(true);
     }
+
+  /*  public String displayWeatherRating(FiveDaysWeather homeWeather, FiveDaysWeather destWeather){
+
+
+        return;
+    }
+
+    public estimateWeatherConditions (FiveDaysWeather weatherData){
+        for (int i = 0; i < weatherData.getWeatherArrayCount(); i++){
+            weatherData.getWeatherForThreeHours(i).
+        }
+
+    } */
 
     public VBox getMainContainer() {
         return mainContainer;

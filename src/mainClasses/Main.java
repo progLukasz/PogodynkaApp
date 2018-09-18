@@ -1,28 +1,14 @@
 package mainClasses;
 
+
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.ImageCursor;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-
-import java.io.File;
-
 
 public class Main extends Application {
 
@@ -30,51 +16,21 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        //https://api.openweathermap.org/data/2.5/forecast?q=Leszno&appid=6a9f0069bab2b2553d52eab3c86b66f4&units=metric
-/*        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("frontend.fxml"));
-        Parent layout = fxmlLoader.load();
-        Scene scene = new Scene(layout); */
 
-        BorderPane titlePane = new BorderPane();
-        titlePane.setPrefSize(850, 440);
-        titlePane.setId("titlePane_style");
+        Scene scene1;
 
+        if (!checkInternetConnection()) {
+            NoConnectionPane newNoConnPane = new NoConnectionPane();
+            newNoConnPane.confirmButton.setOnAction((event) -> {primaryStage.close();});
+            scene1 = new Scene(newNoConnPane);
+        } else {
 
-        Text appTitle = new Text("PogodynkApp");
-        appTitle.setId("appTitle_style");
-        Text appSubtitle = new Text("Nie daj się już nigdy zaskoczyć pogodzie");
-        appSubtitle.setId("appSubtitle_style");
-        TextField homeCityBox = new TextField();
-        TextField destCityBox = new TextField();
-        Button acceptButton = new Button("Wyszukaj prognozę");
-        acceptButton.getStyleClass().add("button_style");
-        String startMessage = "Podaj nazwę miasta w ktorym się obecnie znajdujesz oraz miasta do którego " +
-                "chcesz wyjechać na wakację według podanego przykładu. Jeśli miasto znajduje się poza granicami " +
-                "Polski, wpisz je w języku angielskim.";
-        Label errorMessage = new Label(startMessage);
-
-        errorMessage.setWrapText(true);
-        errorMessage.getStyleClass().add("errorMessage_style");
-        errorMessage.setId("errorMessage_info");
-
-        homeCityBox.setPromptText("Poznań, Polska");
-        destCityBox.setPromptText("Madrid, Spain");
-
-        VBox topNode = new VBox(appTitle, appSubtitle);
-        topNode.getStyleClass().add("titleNode_style");
-        topNode.setId("titleNodeTop_style");
-        VBox centerNode = new VBox(homeCityBox, destCityBox, acceptButton);
-        centerNode.getStyleClass().add("titleNode_style");
-        centerNode.setId("titleNodeCenter_style");
-        VBox bottomNode = new VBox(errorMessage);
-        bottomNode.getStyleClass().add("titleNode_style");
+            TitlePane newTitlePane = new TitlePane();
+            newTitlePane.acceptButton.setDefaultButton(true);
+            scene1 = new Scene(newTitlePane);
+        }
 
 
-        titlePane.setTop(topNode);
-        titlePane.setCenter(centerNode);
-        titlePane.setBottom(bottomNode);
-
-        Scene scene1 = new Scene(titlePane);
         primaryStage.setScene(scene1);
         primaryStage.setTitle("PogodynkApp");
         primaryStage.setResizable(false);
@@ -82,81 +38,103 @@ public class Main extends Application {
         primaryStage.centerOnScreen();
         scene1.getStylesheets().add("mainClasses/style.css");
 
-        acceptButton.setOnAction((event) -> {
 
-            try {
-                String home = homeCityBox.getText();
-                String destination = destCityBox.getText();
+        newTitlePane.acceptButton.setOnAction((event) -> {
+
+            String home = homeCityBox.getText();
+            String destination = destCityBox.getText();
+
+            if (checkIfStringsAreNotEmpty(home, destination)) {
+                homeCityBox.getStyleClass().remove("textFieldHighlighted_style");
+                destCityBox.getStyleClass().remove("textFieldHighlighted_style");
+                homeCityBox.getStyleClass().add("textField_style");
+                destCityBox.getStyleClass().add("textField_style");
+
                 WeatherQueryResult weatherHere = new WeatherQueryResult(home,
                         "6a9f0069bab2b2553d52eab3c86b66f4");
                 WeatherQueryResult weatherThere = new WeatherQueryResult(destination,
                         "6a9f0069bab2b2553d52eab3c86b66f4");
 
-                FiveDaysWeather weatherForHomeTown = new FiveDaysWeather(weatherHere.getWeatherData());
-                FiveDaysWeather weatherForDestinationTown = new FiveDaysWeather((weatherThere.getWeatherData()));
+                try {
+                    FiveDaysWeather weatherForHomeTown = new FiveDaysWeather(weatherHere.getWeatherData());
+                    FiveDaysWeather weatherForDestinationTown = new FiveDaysWeather((weatherThere.getWeatherData()));
 
-                BorderPane mainPane = new BorderPane();
-                mainPane.setPrefSize(1200, 900);
-                mainPane.setId("mainPane_style");
+                    BorderPane mainPane = new BorderPane();
+                    mainPane.setPrefSize(1200, 900);
+                    mainPane.setId("mainPane_style");
 
-                WeatherPane homeTown = new WeatherPane(home, weatherForHomeTown, weatherForHomeTown
-                        .getWeatherForThreeHours(0).getDateAndTime());
-                VBox leftWeatherPane = new VBox(homeTown.getWeatherData());
-                leftWeatherPane.getStyleClass().add("mainPane_style");
-                WeatherPane destinationTown = new WeatherPane(destination, weatherForDestinationTown,
-                        weatherForDestinationTown.getWeatherForThreeHours(0).getDateAndTime());
-                VBox rightWeatherPane = new VBox(destinationTown.getWeatherData());
-                rightWeatherPane.getStyleClass().add("mainPane_style");
-                mainPane.setLeft(leftWeatherPane);
-                mainPane.setRight(rightWeatherPane);
+                    WeatherPane homeTown = new WeatherPane(home, weatherForHomeTown, weatherForHomeTown
+                            .getWeatherForThreeHours(0).getDateAndTime());
+                    VBox leftWeatherPane = new VBox(homeTown.getWeatherData());
+                    leftWeatherPane.getStyleClass().add("mainPane_style");
+                    WeatherPane destinationTown = new WeatherPane(destination, weatherForDestinationTown,
+                            weatherForDestinationTown.getWeatherForThreeHours(0).getDateAndTime());
+                    VBox rightWeatherPane = new VBox(destinationTown.getWeatherData());
+                    rightWeatherPane.getStyleClass().add("mainPane_style");
+                    mainPane.setLeft(leftWeatherPane);
+                    mainPane.setRight(rightWeatherPane);
 
-                CentralPane centralGrid = new CentralPane();
-                centralGrid.setId("mainCentralPane_style");
-                mainPane.setCenter(centralGrid.getMainContainer());
+                    CentralPane centralGrid = new CentralPane();
+                    centralGrid.setId("mainCentralPane_style");
+                    mainPane.setCenter(centralGrid.getMainContainer());
 
-                TitledPane tab1 = new TitledPane("Temperatura", new OtherMethods().addChart("Temperatura", home,
-                        destination, weatherForHomeTown, weatherForDestinationTown, homeTown, destinationTown, mainPane, centralGrid));
-                TitledPane tab2 = new TitledPane("Zachmurzenie", new OtherMethods().addChart("Zachmurzenie", home,
-                        destination, weatherForHomeTown, weatherForDestinationTown, homeTown, destinationTown, mainPane, centralGrid));
-                TitledPane tab3 = new TitledPane("Wiatr", new OtherMethods().addChart("Wiatr", home, destination,
-                        weatherForHomeTown, weatherForDestinationTown, homeTown, destinationTown, mainPane, centralGrid));
-                Accordion accordion = new Accordion();
-                accordion.getPanes().addAll(tab1, tab2, tab3);
-                mainPane.setTop(accordion);
-                accordion.expandedPaneProperty().addListener(new ChangeListener<TitledPane>() {
-                    @Override public void changed(ObservableValue<? extends TitledPane> property, final TitledPane oldPane, final TitledPane newPane) {
+                    TitledPane tab1 = new TitledPane("Temperatura", new OtherMethods().addChart("Temperatura", home,
+                            destination, weatherForHomeTown, weatherForDestinationTown, homeTown, destinationTown, mainPane, centralGrid));
+                    TitledPane tab2 = new TitledPane("Zachmurzenie", new OtherMethods().addChart("Zachmurzenie", home,
+                            destination, weatherForHomeTown, weatherForDestinationTown, homeTown, destinationTown, mainPane, centralGrid));
+                    TitledPane tab3 = new TitledPane("Wiatr", new OtherMethods().addChart("Wiatr", home, destination,
+                            weatherForHomeTown, weatherForDestinationTown, homeTown, destinationTown, mainPane, centralGrid));
+                    Accordion accordion = new Accordion();
+                    accordion.getPanes().addAll(tab1, tab2, tab3);
+                    mainPane.setTop(accordion);
+                    accordion.expandedPaneProperty().addListener((property, oldPane, newPane) -> {
                         if (newPane != null) {
                             centralGrid.setHintForUser("Możesz wyświetlić szczegółową pogodę po kliknięciu na jeden z" +
                                     " węzłów wykresu");
-                        }
-                        else {
+                        } else {
                             centralGrid.setHintForUser("Rozwiń jedną z powyższych zakładek aby zobaczyć pogodę na kolejne dni.");
                         }
-                        }});
+                    });
 
-                Scene scene2 = new Scene(mainPane);
-                primaryStage.setScene(scene2);
-                primaryStage.show();
-                primaryStage.centerOnScreen();
-                scene2.getStylesheets().add("mainClasses/style.css");
-
-                centralGrid.returnToTitleScreen.setOnAction((even) -> {
-                    primaryStage.setScene(scene1);
+                    Scene scene2 = new Scene(mainPane);
+                    primaryStage.setScene(scene2);
                     primaryStage.show();
                     primaryStage.centerOnScreen();
-                });
+                    scene2.getStylesheets().add("mainClasses/style.css");
 
-            } catch (Exception e){
+                    centralGrid.returnToTitleScreen.setOnAction((even) -> {
+                        primaryStage.setScene(scene1);
+                        primaryStage.show();
+                        primaryStage.centerOnScreen();
+                    });
 
-                errorMessage.setId("errorMessage_error");
-                errorMessage.setText("Niestety, nie udało nawiązać się połączenia z serwerem. Prosimy upewnić " +
-                        "się, iż wpisano poprawne nazwy miast lub spróbować później." + e);
-                PauseTransition pauseTransition = new PauseTransition(Duration.seconds(4));
-                pauseTransition.setOnFinished(a -> changeMessageTextAndStyling(errorMessage, startMessage,
-                        "errorMessage_info"));
-                pauseTransition.play();
+                } catch (Exception e) {
+
+                    displayMessageForWhile(errorMessage, "Niestety, nie udało nawiązać się połączenia z serwerem. " +
+                                    "Prosimy upewnić " + "się, iż wpisano poprawne nazwy miast lub spróbować później.",
+                            "errorMessage_error", startMessage, "errorMessage_info", 4);
+                }
+            }
+            else {
+                displayMessageForWhile(errorMessage, "Proszę uzupełnić wszystkie niezbędne pola",
+                        "errorMessage_error", startMessage, "errorMessage_info", 4);
+                if (home.isEmpty()){homeCityBox.getStyleClass().add("textFieldHighlighted_style");}
+                if(destination.isEmpty()) {destCityBox.getStyleClass().add("textFieldHighlighted_style");}
             }
         });
+    }
+
+    private boolean checkIfStringsAreNotEmpty(String phrase1, String phrase2){
+        return (!(phrase1.isEmpty() || phrase2.isEmpty()));
+    }
+
+    private void displayMessageForWhile(Label messageDestination, String messageText, String messageStyle, String
+            messageAfter, String styleAfter, int duration){
+        messageDestination.setText(messageText);
+        messageDestination.setId(messageStyle);
+        PauseTransition pauseTransition = new PauseTransition(Duration.seconds(duration));
+        pauseTransition.setOnFinished(a -> changeMessageTextAndStyling(messageDestination, messageAfter, styleAfter));
+        pauseTransition.play();
     }
 
     private void changeMessageTextAndStyling (Label label, String text, String style){
@@ -164,4 +142,16 @@ public class Main extends Application {
         label.setId(style);
     }
 
+    private boolean checkInternetConnection () {
+        int dataCode = 0;
+        try {
+            WeatherQueryResult connectionTest = new WeatherQueryResult("Warsaw",
+                    "6a9f0069bab2b2553d52eab3c86b66f4");
+            FiveDaysWeather connectionTest2 = new FiveDaysWeather(connectionTest.getWeatherData());
+
+        } catch (Exception e){
+            return false;
+        }
+        return true;
+    }
 }

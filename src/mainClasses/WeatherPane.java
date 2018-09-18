@@ -50,6 +50,8 @@ public class WeatherPane extends Pane {
         Image weatherImage = new Image("http://openweathermap.org/img/w/" + weather.getWeatherForThreeHours(requestedDateIndex)
                 .getWeatherIcon() + ".png");
         this.iVWeather = new ImageView(weatherImage);
+        this.iVWeather.setFitHeight(150);
+        this.iVWeather.setFitWidth(150);
         HBox cityHB = new HBox(labelCity, iVWeather);
         labelCity.getStyleClass().add("sidePaneCity_style");
         Text labelDateStaticText = new Text("Data: ");

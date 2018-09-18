@@ -172,11 +172,7 @@ public class ParsedForecast {
         return windDegree;
     }
 
-    public void setCode(int code){ this.code = code;}
-
-    public float getLatitude() {
-        return latitude;
-    }
+    public float getLatitude() { return latitude; }
 
     public float getLongitude() {
         return longitude;
