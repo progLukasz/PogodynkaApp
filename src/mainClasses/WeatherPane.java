@@ -14,7 +14,7 @@ import java.io.File;
 
 public class WeatherPane extends Pane {
 
-    private Label labelCity;
+    Label labelCity;
     private Label labelDate;
     private Label labelTime;
     private ImageView iVWeather;
@@ -53,7 +53,6 @@ public class WeatherPane extends Pane {
         this.iVWeather.setFitHeight(150);
         this.iVWeather.setFitWidth(150);
         HBox cityHB = new HBox(labelCity, iVWeather);
-        labelCity.getStyleClass().add("sidePaneCity_style");
         Text labelDateStaticText = new Text("Data: ");
         labelDateStaticText.getStyleClass().add("sidePaneDescription_style");
         this.labelDate = new Label(weather.getWeatherForThreeHours(requestedDateIndex).getDate());
@@ -118,6 +117,10 @@ public class WeatherPane extends Pane {
 
         this.container.getChildren().addAll(cityHB, dateHB, timeHB, weatherHB, tempHB, cloudsHB,
                 humidityHB, pressureHB, windSpeedHB, labelWindDirectionStaticText, windPic);
+    }
+
+    public void setIdForLabelCity(String idName){
+        labelCity.setId(idName);
     }
 
     public VBox getWeatherData(){

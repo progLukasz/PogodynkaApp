@@ -7,27 +7,21 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class TitlePane extends BorderPane {
+class TitlePane extends BorderPane {
 
-    private Text appTitle;
-    private Text appSubtitle;
     private TextField homeCityBox;
     private TextField destCityBox;
-    public Button acceptButton;
+    Button acceptButton;
     private String startMessage = "Podaj nazwę miasta w ktorym się obecnie znajdujesz oraz miasta do którego " +
-            "chcesz wyjechać na wakację według podanego przykładu. Jeśli miasto znajduje się poza granicami " +
-            "Polski, wpisz je w języku angielskim.";
+            "się wybierasz. Jeśli miasto znajduje się poza granicami Polski, wpisz je w języku angielskim.";
     private Label errorMessage;
-    private VBox topNode;
-    private VBox centerNode;
-    private VBox bottomNode;
 
-    public TitlePane() {
+    TitlePane() {
 
-        this.appTitle = new Text("PogodynkApp");
-        this.appTitle.setId("appTitle_style");
-        this.appSubtitle = new Text("Nie daj się już nigdy zaskoczyć pogodzie");
-        this.appSubtitle.setId("appSubtitle_style");
+        Text appTitle = new Text("PogodynkApp");
+        appTitle.setId("appTitle_style");
+        Text appSubtitle = new Text("Nie daj się już nigdy zaskoczyć pogodzie");
+        appSubtitle.setId("appSubtitle_style");
         this.setPrefSize(850, 440);
         this.setId("titlePane_style");
         this.homeCityBox = new TextField();
@@ -42,19 +36,45 @@ public class TitlePane extends BorderPane {
         this.errorMessage.setId("errorMessage_info");
         this.homeCityBox.setPromptText("Poznań, Polska");
         this.destCityBox.setPromptText("Madrid, Spain");
-        this.topNode = new VBox(appTitle, appSubtitle);
-        this.topNode.getStyleClass().add("titleNode_style");
-        this.topNode.setId("titleNodeTop_style");
-        this.centerNode = new VBox(homeCityBox, destCityBox, acceptButton);
-        this.centerNode.getStyleClass().add("titleNode_style");
-        this.centerNode.setId("titleNodeCenter_style");
-        this.bottomNode = new VBox(errorMessage);
-        this.bottomNode.getStyleClass().add("titleNode_style");
-        this.bottomNode.setId("titleNodeBottom_style");
+        VBox topNode = new VBox(appTitle, appSubtitle);
+        topNode.getStyleClass().add("titleNode_style");
+        topNode.setId("titleNodeTop_style");
+        VBox centerNode = new VBox(homeCityBox, destCityBox, acceptButton);
+        centerNode.getStyleClass().add("titleNode_style");
+        centerNode.setId("titleNodeCenter_style");
+        VBox bottomNode = new VBox(errorMessage);
+        bottomNode.getStyleClass().add("titleNode_style");
+        bottomNode.setId("titleNodeBottom_style");
 
         this.setTop(topNode);
         this.setCenter(centerNode);
         this.setBottom(bottomNode);
     }
 
+
+    void changeHomeCityBoxClass(String classToBeAdded, String classToBeRemoved){
+        this.homeCityBox.getStyleClass().remove(classToBeRemoved);
+        this.homeCityBox.getStyleClass().add(classToBeAdded);
+    }
+
+    void changeDestCityBoxClass(String classToBeAdded, String classToBeRemoved){
+        this.destCityBox.getStyleClass().remove(classToBeRemoved);
+        this.destCityBox.getStyleClass().add(classToBeAdded);
+    }
+
+    String getHomeCityBox() {
+        return homeCityBox.getText();
+    }
+
+    String getDestCityBox() {
+        return destCityBox.getText();
+    }
+
+    String getStartMessage() {
+        return startMessage;
+    }
+
+    Label getErrorMessage() {
+        return errorMessage;
+    }
 }

@@ -118,10 +118,17 @@
     -fx-min-width: 300px;
 }
 
-.sidePaneCity_style{
-    -fx-font-size: 16px;
+
+#leftPaneCity_style{
+    -fx-font-size: 24px;
     -fx-padding: 0px 0px 0px 5px;
-    -fx-fill: white;
+    -fx-text-fill: #a800b7;
+}
+
+#rightPaneCity_style{
+    -fx-font-size: 24px;
+    -fx-padding: 0px 0px 0px 5px;
+    -fx-text-fill: #00ff11;
 }
 
 .sidePaneDescription_style{
@@ -179,17 +186,6 @@
     -fx-background-image: url("../../../../img/pattern.png");
 }
 
-.chart-legend {
-   -fx-background-color:  transparent;
-   -fx-padding: 20px;
-}
-
-.chart-legend-item{
-    -fx-text-fill: #483d8b;
-    -fx-font-family: 'Baloo Tammudu';
-    -fx-font-size: 14px;
-}
-
 .chart-title {
   -fx-text-fill: #483d8b;
   -fx-font-size: 24px;
@@ -234,7 +230,7 @@
     -fx-effect: null;
 }
 
-.default-color0.chart-area-symbol { -fx-background-color: #e900ff, #f7a0ff;
+.default-color0.chart-area-symbol { -fx-background-color: #a800b7, #f7a0ff;
                                     -fx-padding: 5px 5px 5px 5px;
                                     -fx-cursor: "hand";
                                   }
@@ -243,11 +239,11 @@
                                     -fx-cursor: "hand";
                                   }
 
-.default-color0.chart-series-area-line { -fx-stroke: #e900ff; }
+.default-color0.chart-series-area-line { -fx-stroke: #a800b7; }
 .default-color1.chart-series-area-line { -fx-stroke: #00ff11; }
 
-.default-color0.chart-series-area-fill { -fx-fill: #e900ffaa; }
+.default-color0.chart-series-area-fill { -fx-fill: #a800b7aa; }
 .default-color1.chart-series-area-fill { -fx-fill: #00ff1177; }
 
-.default-color0.chart-line-symbol { -fx-background-color: #e900ff, white; }
+.default-color0.chart-line-symbol { -fx-background-color: #a800b7, white; }
 .default-color1.chart-line-symbol { -fx-background-color: #00ff11, white; }

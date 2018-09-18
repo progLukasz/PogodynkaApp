@@ -60,6 +60,7 @@ class OtherMethods {
                                     dataHomeCity, dataDestCity, leftPane, rightPane, mainPane, centralPane));
                 }
                 tempChart.applyCss();
+                tempChart.setLegendVisible(false);
                 return tempChart;
         }
 
@@ -67,7 +68,9 @@ class OtherMethods {
             dWeather, XYChart.Data<String, Number> hDate, XYChart.Data<String, Number> dDate,
                                       WeatherPane hPane, WeatherPane dPane, BorderPane bPane, CentralPane centralPane){
         hPane.updateWeatherData(hCity, hWeather, hDate.getXValue());
+        hPane.setIdForLabelCity("leftPaneCity_style");
         dPane.updateWeatherData(dCity, dWeather, dDate.getXValue());
+        dPane.setIdForLabelCity("rightPaneCity_style");
         VBox homePane = new VBox(hPane.getWeatherData());
         VBox destPane = new VBox(dPane.getWeatherData());
         bPane.setLeft(homePane);
