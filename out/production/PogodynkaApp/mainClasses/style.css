@@ -116,6 +116,7 @@
     -fx-fill: white;
     -fx-font-family: 'Baloo Tammudu';
     -fx-min-width: 300px;
+    -fx-min-height: 160px;
 }
 
 
@@ -141,6 +142,7 @@
     -fx-font-size: 16px;
     -fx-fill: white;
 }
+
 #centerPane_style{
     -fx-alignment: center;
 }
@@ -149,6 +151,10 @@
     -fx-font-size: 16px;
     -fx-padding: 10px;
     -fx-text-fill: white;
+}
+
+#bottomPane_style{
+    -fx-alignment: bottom-center;
 }
 
 /* accordion and chart formatting */

@@ -51,10 +51,11 @@ public class MainPane extends BorderPane {
         this.setTop(accordion);
         this.accordion.expandedPaneProperty().addListener((property, oldPane, newPane) -> {
             if (newPane != null) {
-                centralGrid.setHintForUser("Możesz wyświetlić szczegółową pogodę po kliknięciu na jeden z" +
-                        " węzłów wykresu");
+                centralGrid.setHintForUser("Możesz wyświetlić szczegółową pogodę po kliknięciu na jeden "  +
+                        "z węzłów wykresu.");
             } else {
-                centralGrid.setHintForUser("Rozwiń jedną z powyższych zakładek aby zobaczyć pogodę na kolejne dni.");
+                centralGrid.selectHintForUser();
+                centralGrid.setImageInCentralPane();
             }
         });
     }

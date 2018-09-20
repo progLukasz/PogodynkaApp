@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.text.TextAlignment;
 
 import java.io.File;
 
@@ -20,6 +21,8 @@ public class CentralPane extends VBox {
     private ImageView positiveManImage;
     private ImageView negativeManImage;
     private ImageView neutralManImage;
+
+    private int weatherScore = 0;
 
     CentralPane() {
 
@@ -44,6 +47,7 @@ public class CentralPane extends VBox {
         this.returnToTitleScreen = new Button("powrót do wyboru miast");
         returnToTitleScreen.getStyleClass().add("button_style");
         this.bottomPane = new VBox(returnToTitleScreen);
+        this.bottomPane.setId("bottomPane_style");
 
         mainContainer = new VBox(topPane, centerPane, bottomPane);
 
@@ -55,9 +59,10 @@ public class CentralPane extends VBox {
     public void setHintForUser(String hint) {
         this.hintForUser.setText(hint);
         this.hintForUser.setWrapText(true);
+        this.hintForUser.setTextAlignment(TextAlignment.JUSTIFY);
     }
 
-    private int compareWeatherForSelection (Float  homeTemp, int homeClouds, float homeWindSpeed, float destTemp, int
+    public int setWeatherScore (Float  homeTemp, int homeClouds, float homeWindSpeed, float destTemp, int
             destClouds, float destWindSpeed){
         int scoreTemp = 0;
 
@@ -69,29 +74,28 @@ public class CentralPane extends VBox {
 
         if (destWindSpeed < homeWindSpeed){scoreTemp++;}
         else if (destWindSpeed > homeWindSpeed){scoreTemp--;}
-
+        this.weatherScore = scoreTemp;
         return scoreTemp;
     }
 
-    private ImageView estimateWeatherRating(Float homeTemp, int homeClouds, float homeWindSpeed, float destTemp, int
-            destClouds, float destWindSpeed) {
-        int score = compareWeatherForSelection(homeTemp, homeClouds, homeWindSpeed, destTemp, destClouds,
-                destWindSpeed);
+    private ImageView estimateWeatherRating() {
 
-        if (score < 0) {
+        if (this.weatherScore < 0) {
             return this.negativeManImage;
-        } else if (score > 0) {
+        } else if (this.weatherScore > 0) {
             return positiveManImage;
         } else {
             return neutralManImage;
         }
     }
 
-    public void setImageInCentralPane(Float homeTemp, int homeClouds, float homeWindSpeed, float destTemp, int
-            destClouds, float destWindSpeed){
+    public void selectHintForUser(){
+        this.hintForUser.setText("Punkty to: " + this.weatherScore);
+    }
+
+    public void setImageInCentralPane(){
         this.centerPane.getChildren().clear();
-        this.centerPane.getChildren().add(this.estimateWeatherRating(homeTemp, homeClouds, homeWindSpeed, destTemp,
-        destClouds, destWindSpeed));
+        this.centerPane.getChildren().add(this.estimateWeatherRating());
     }
 
     public VBox getMainContainer() {

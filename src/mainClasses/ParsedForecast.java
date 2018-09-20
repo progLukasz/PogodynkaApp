@@ -40,7 +40,6 @@ public class ParsedForecast {
     public ParsedForecast(String weatherData) {
 
         this.weatherDataList = splitDataIntoList(weatherData, "\"|\\{|\\}|:|,|\\[|\\]");
-       // this.dt = Integer.parseInt(weatherSingleDataFetcher(weatherDataList,"dt"));
         this.dt = Long.parseLong(weatherData.substring(0,10));
         this.dateAndTime = weatherSingleDataFetcher(weatherDataList, "dt_txt");
         this.date = dateAndTime.substring(0,10);

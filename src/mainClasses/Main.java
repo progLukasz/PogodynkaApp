@@ -104,6 +104,7 @@ public class Main extends Application {
         try {
             WeatherQueryResult connectionTest = new WeatherQueryResult("Warsaw", apiKey);
             FiveDaysWeather connectionTest2 = new FiveDaysWeather(connectionTest.getWeatherData());
+            String test = connectionTest2.getWeatherForThreeHours(0).getDateAndTime();
 
         } catch (Exception e){
             return false;
