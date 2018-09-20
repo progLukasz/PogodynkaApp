@@ -1,4 +1,4 @@
-package mainClasses;
+package NewPanes;
 
 
 import javafx.scene.control.Label;
@@ -9,6 +9,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
+import mainClasses.FiveDaysWeather;
+import mainClasses.OtherMethods;
 
 import java.io.File;
 
@@ -125,5 +127,19 @@ public class WeatherPane extends Pane {
 
     public VBox getWeatherData(){
         return container;
+    }
+
+    public String getClouds() {
+        return labelClouds.getText().substring(0,1);
+    }
+
+    public String getTemp() {
+        String delims = "[ ]+";
+        return labelTemp.getText().split(delims)[0];
+    }
+
+    public String getWindSpeed() {
+        String delims = "[ ]+";
+        return labelWindSpeed.getText().split(delims)[0];
     }
 }

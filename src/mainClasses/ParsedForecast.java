@@ -11,8 +11,6 @@ public class ParsedForecast {
     private String dateAndTime;
     private String date;
     private String time;
-    public int code;
-    private String message;
     // main
     private float temperature;
     private float tempMin;
@@ -82,18 +80,6 @@ public class ParsedForecast {
         T data = list.get(index + 1);
 
         return data;
-    }
-
-    public int getCode( String weatherData) {
-        List<String> weatherDataList = splitDataIntoList(weatherData, "\"|\\{|\\}|:|,|\\[|\\]");
-        this.code = Integer.parseInt(weatherSingleDataFetcher(weatherDataList, "cod"));
-        return this.code;
-    }
-
-    public String getMessage(String weatherData) {
-        List<String> weatherDataList = splitDataIntoList(weatherData, "\"|\\{|\\}|:|,|\\[|\\]");
-        this.message = weatherSingleDataFetcher(weatherDataList, "message");
-        return this.message;
     }
 
     public long getDt() {

@@ -1,4 +1,4 @@
-package mainClasses;
+package NewPanes;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -7,16 +7,16 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-class TitlePane extends BorderPane {
+public class TitlePane extends BorderPane {
 
     private TextField homeCityBox;
     private TextField destCityBox;
-    Button acceptButton;
+    public Button acceptButton;
     private String startMessage = "Podaj nazwę miasta w ktorym się obecnie znajdujesz oraz miasta do którego " +
             "się wybierasz. Jeśli miasto znajduje się poza granicami Polski, wpisz je w języku angielskim.";
     private Label errorMessage;
 
-    TitlePane() {
+    public TitlePane() {
 
         Text appTitle = new Text("PogodynkApp");
         appTitle.setId("appTitle_style");
@@ -52,29 +52,29 @@ class TitlePane extends BorderPane {
     }
 
 
-    void changeHomeCityBoxClass(String classToBeAdded, String classToBeRemoved){
+    public void changeHomeCityBoxClass(String classToBeAdded, String classToBeRemoved){
         this.homeCityBox.getStyleClass().remove(classToBeRemoved);
         this.homeCityBox.getStyleClass().add(classToBeAdded);
     }
 
-    void changeDestCityBoxClass(String classToBeAdded, String classToBeRemoved){
+    public void changeDestCityBoxClass(String classToBeAdded, String classToBeRemoved){
         this.destCityBox.getStyleClass().remove(classToBeRemoved);
         this.destCityBox.getStyleClass().add(classToBeAdded);
     }
 
-    String getHomeCityBox() {
+    public String getHomeCityBox() {
         return homeCityBox.getText();
     }
 
-    String getDestCityBox() {
+    public String getDestCityBox() {
         return destCityBox.getText();
     }
 
-    String getStartMessage() {
+    public String getStartMessage() {
         return startMessage;
     }
 
-    Label getErrorMessage() {
+    public Label getErrorMessage() {
         return errorMessage;
     }
 }

@@ -1,12 +1,14 @@
 package mainClasses;
 
+import NewPanes.CentralPane;
+import NewPanes.WeatherPane;
 import javafx.scene.chart.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 
-class OtherMethods {
+public class OtherMethods {
 
-    AreaChart addChart(String displayedData, String cityHome, String cityDest, FiveDaysWeather
+    public AreaChart addChart(String displayedData, String cityHome, String cityDest, FiveDaysWeather
             weatherDataHome, FiveDaysWeather weatherDataDest, WeatherPane leftPane, WeatherPane rightPane, BorderPane
                                mainPane, CentralPane centralPane) {
         Float tempArrayHome[] = new Float[weatherDataHome.getWeatherArrayCount()];
@@ -78,10 +80,13 @@ class OtherMethods {
         homePane.getStyleClass().add("mainPane_style");
         destPane.getStyleClass().add("mainPane_style");
         centralPane.setHintForUser("Zwiń zakładkę aby zobaczyć wszystkie szczegóły prognozy pogody.");
+        centralPane.setImageInCentralPane(Float.parseFloat(hPane.getTemp()), Integer.parseInt(hPane.getClouds()),
+                Float.parseFloat(hPane.getWindSpeed()), Float.parseFloat(dPane.getTemp()), Integer.parseInt(dPane
+                        .getClouds()), Float.parseFloat(dPane.getWindSpeed()));
 
     }
 
-    String weatherDescriptor(int weatherId){
+    public String weatherDescriptor(int weatherId){
         switch (weatherId){
             case 200: return "burza z lekkimi opadami deszczu";
             case 201: return "burza z opadami deszczu";

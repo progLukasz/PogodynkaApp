@@ -1,9 +1,11 @@
-package mainClasses;
+package NewPanes;
 
 import javafx.scene.control.Accordion;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import mainClasses.FiveDaysWeather;
+import mainClasses.OtherMethods;
 
 public class MainPane extends BorderPane {
 
@@ -11,7 +13,7 @@ public class MainPane extends BorderPane {
     private  VBox leftWeatherPane;
     private WeatherPane destinationTown;
     private VBox rightWeatherPane;
-    CentralPane centralGrid;
+    public CentralPane centralGrid;
     private TitledPane tab1;
     private TitledPane tab2;
     private TitledPane tab3;

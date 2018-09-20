@@ -141,6 +141,9 @@
     -fx-font-size: 16px;
     -fx-fill: white;
 }
+#centerPane_style{
+    -fx-alignment: center;
+}
 
 .centerPaneTips_style{
     -fx-font-size: 16px;

@@ -1,4 +1,4 @@
-package mainClasses;
+package NewPanes;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -8,7 +8,7 @@ import javafx.scene.text.Text;
 
 public class NoConnectionPane extends BorderPane {
 
-    Button confirmButton;
+    public Button confirmButton;
     private String connectionMessageLine1 = "Niestety ale nie udało się nawiązać połączenia z serwerem OpenWeatherMap.";
     private String connectionMessageLine2 = "Sprawdź połączenie z internetem i uruchom aplikację ponownie.";
     private Label connectionMessage;
@@ -18,7 +18,7 @@ public class NoConnectionPane extends BorderPane {
     private VBox centerNode;
     private VBox bottomNode;
 
-    NoConnectionPane() {
+    public NoConnectionPane() {
         this.setPrefSize(850,440);
         this.setId("titlePane_style");
         this.appTitle = new Text("PogodynkApp");

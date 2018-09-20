@@ -1,6 +1,8 @@
 package mainClasses;
 
-
+import NewPanes.MainPane;
+import NewPanes.NoConnectionPane;
+import NewPanes.TitlePane;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -41,7 +43,7 @@ public class Main extends Application {
             String home = newTitlePane.getHomeCityBox();
             String destination = newTitlePane.getDestCityBox();
 
-            if (checkIfStringsAreNotEmpty(home, destination)) {
+            if (!(home.isEmpty() || destination.isEmpty())) {
                 newTitlePane.changeHomeCityBoxClass("textField_style", "textFieldHighlighted_style");
                 newTitlePane.changeDestCityBoxClass("textField_style", "textFieldHighlighted_style");
 
@@ -84,10 +86,6 @@ public class Main extends Application {
         });
     }
 
-    private boolean checkIfStringsAreNotEmpty(String phrase1, String phrase2){
-        return (!(phrase1.isEmpty() || phrase2.isEmpty()));
-    }
-
     private void displayMessageForWhile(Label messageDestination, String messageText, String messageStyle, String
             messageAfter, String styleAfter, int duration){
         messageDestination.setText(messageText);
@@ -106,13 +104,10 @@ public class Main extends Application {
         try {
             WeatherQueryResult connectionTest = new WeatherQueryResult("Warsaw", apiKey);
             FiveDaysWeather connectionTest2 = new FiveDaysWeather(connectionTest.getWeatherData());
-            System.out.println(connectionTest2.getWeatherForThreeHours(0).getMain());
 
         } catch (Exception e){
-            System.out.println("false");
             return false;
         }
-        System.out.println("true");
         return true;
     }
 }
