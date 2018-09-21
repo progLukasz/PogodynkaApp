@@ -151,6 +151,7 @@
     -fx-font-size: 16px;
     -fx-padding: 10px;
     -fx-text-fill: white;
+    -fx-text-alignment: center;
 }
 
 #bottomPane_style{

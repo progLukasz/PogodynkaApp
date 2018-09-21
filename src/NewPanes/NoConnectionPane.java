@@ -9,8 +9,6 @@ import javafx.scene.text.Text;
 public class NoConnectionPane extends BorderPane {
 
     public Button confirmButton;
-    private String connectionMessageLine1 = "Niestety ale nie udało się nawiązać połączenia z serwerem OpenWeatherMap.";
-    private String connectionMessageLine2 = "Sprawdź połączenie z internetem i uruchom aplikację ponownie.";
     private Label connectionMessage;
     private Text appTitle;
     private Text appSubtitle;
@@ -27,7 +25,8 @@ public class NoConnectionPane extends BorderPane {
         this.appSubtitle.setId("appSubtitle_style");
         this.confirmButton = new Button("Zamknij");
         this.confirmButton.getStyleClass().add("button_style");
-        this.connectionMessage = new Label(connectionMessageLine1 + "\n" + connectionMessageLine2);
+        this.connectionMessage = new Label("Niestety ale nie udało się nawiązać połączenia z serwerem OpenWeatherMap." +
+                " \n Sprawdź połączenie z internetem i uruchom aplikację ponownie.");
         this. connectionMessage.getStyleClass().add("errorMessage_style");
         this.connectionMessage.setId("errorMessage_error");
 
@@ -39,7 +38,6 @@ public class NoConnectionPane extends BorderPane {
         this.bottomNode = new VBox(confirmButton);
         this.bottomNode.getStyleClass().add("titleNode_style");
         this.bottomNode.setStyle("-fx-min-height: 100px;");
-
 
         this.setTop(topNode);
         this.setCenter(centerNode);

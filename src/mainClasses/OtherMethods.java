@@ -86,12 +86,10 @@ public class OtherMethods {
         bPane.setRight(destPane);
         homePane.getStyleClass().add("mainPane_style");
         destPane.getStyleClass().add("mainPane_style");
-        int weatherScore = centralPane.setWeatherScore(Float.parseFloat(hPane.getTemp()), Integer.parseInt(hPane.getClouds()),
-                Float.parseFloat(hPane.getWindSpeed()), Float.parseFloat(dPane.getTemp()), Integer.parseInt(dPane
-                        .getClouds()), Float.parseFloat(dPane.getWindSpeed()));
         centralPane.setHintForUser("Zwiń zakładkę aby zobaczyć szczegółową pogodę i wynik porównania pogody");
-
-
+        centralPane.calculateWeatherScore(Float.parseFloat(hPane.getTemp()), Integer.parseInt(hPane.getClouds()),
+                Float.parseFloat(hPane.getWindSpeed()), Float.parseFloat(dPane.getTemp()),
+                Integer.parseInt(dPane.getClouds()), Float.parseFloat(dPane.getWindSpeed()));
     }
 
 
@@ -108,8 +106,7 @@ public class OtherMethods {
                 lineNr++;
             }
             bufferedReader.close();
-            String result = line;
-            return result;
+            return line;
 
         } catch (Exception e) {
             return "Błąd. Nie znaleziono pliku.";

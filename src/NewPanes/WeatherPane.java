@@ -16,7 +16,7 @@ import java.io.File;
 
 public class WeatherPane extends Pane {
 
-    Label labelCity;
+    private Label labelCity;
     private Label labelDate;
     private Label labelTime;
     private ImageView iVWeather;
@@ -33,7 +33,7 @@ public class WeatherPane extends Pane {
 
     private VBox container;
 
-    public WeatherPane(String city, FiveDaysWeather weather, String date) {
+    WeatherPane(String city, FiveDaysWeather weather, String date) {
         updateWeatherData(city, weather, date);
     }
 
@@ -42,7 +42,7 @@ public class WeatherPane extends Pane {
         int requestedDateIndex = 0;
         for (int i = 0; i < weather.getWeatherArrayCount(); i++){
             String w = weather.getWeatherForThreeHours(i).getDateAndTime();
-            if (w == date){
+            if (w.equals(date)){
                 requestedDateIndex = i;
                 break;
             }

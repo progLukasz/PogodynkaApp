@@ -13,12 +13,10 @@ import javafx.util.Duration;
 
 public class Main extends Application {
 
-    final String apiKey =  "6a9f0069bab2b2553d52eab3c86b66f4";
+    private final String apiKey =  "6a9f0069bab2b2553d52eab3c86b66f4";
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-
-
+    public void start(Stage primaryStage) {
 
         Scene scene1;
         NoConnectionPane newNoConnPane = new NoConnectionPane();

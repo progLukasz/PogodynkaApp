@@ -7,7 +7,7 @@ public class FiveDaysWeather {
     private int weatherArrayLength;
 
 
-    public FiveDaysWeather(String weatherData ) {
+    FiveDaysWeather(String weatherData ) {
 
         String threeHoursForecasts[] = weatherData.split("dt\":");
         this.weatherArrayLength =  threeHoursForecasts.length - 1;

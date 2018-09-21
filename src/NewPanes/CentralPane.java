@@ -62,7 +62,7 @@ public class CentralPane extends VBox {
         this.hintForUser.setTextAlignment(TextAlignment.JUSTIFY);
     }
 
-    public int setWeatherScore (Float  homeTemp, int homeClouds, float homeWindSpeed, float destTemp, int
+    public void calculateWeatherScore (Float  homeTemp, int homeClouds, float homeWindSpeed, float destTemp, int
             destClouds, float destWindSpeed){
         int scoreTemp = 0;
 
@@ -75,7 +75,6 @@ public class CentralPane extends VBox {
         if (destWindSpeed < homeWindSpeed){scoreTemp++;}
         else if (destWindSpeed > homeWindSpeed){scoreTemp--;}
         this.weatherScore = scoreTemp;
-        return scoreTemp;
     }
 
     private ImageView estimateWeatherRating() {
@@ -89,16 +88,20 @@ public class CentralPane extends VBox {
         }
     }
 
-    public void selectHintForUser(){
-        this.hintForUser.setText("Punkty to: " + this.weatherScore);
+    void selectHintForUser(){
+        String hint;
+        if (this.weatherScore < 0) hint = "Pozostań w domu. Pogoda tutaj zapowiada się lepiej.";
+        else if (this.weatherScore > 0) hint = "Śmiało ruszaj w podróż. Pogoda zapowiada się dobrze.";
+        else hint = "Obojętnie co zrobisz, wyjdzie na to samo.";
+        this.hintForUser.setText(hint);
     }
 
-    public void setImageInCentralPane(){
+    void setImageInCentralPane(){
         this.centerPane.getChildren().clear();
         this.centerPane.getChildren().add(this.estimateWeatherRating());
     }
 
-    public VBox getMainContainer() {
+    VBox getMainContainer() {
         return mainContainer;
     }
 }

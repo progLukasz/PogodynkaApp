@@ -5,24 +5,20 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class WeatherQueryResult {
+class WeatherQueryResult {
 
     private String weatherData;
 
-    final static String url1 = "https://api.openweathermap.org/data/2.5/forecast?q=";
-    final static String url2 = "&appid=";
-    final static String url3 = "&units=metric";
+    private final static String url1 = "https://api.openweathermap.org/data/2.5/forecast?q=";
+    private final static String url2 = "&appid=";
+    private final static String url3 = "&units=metric";
 
-    final String city;
-
-    public WeatherQueryResult(String cityName, String apiID) {
-        this.city = cityName;
+    WeatherQueryResult(String cityName, String apiID) {
         this.weatherData = this.getUrlContents(this.createUrlAddress(cityName, apiID));
     }
 
     private String createUrlAddress(String cityName, String apiID) {
-        String url = url1 + cityName + url2 + apiID + url3;
-        return url;
+        return url1 + cityName + url2 + apiID + url3;
     }
 
     private String getUrlContents(String url) throws RuntimeException {
@@ -37,15 +33,15 @@ public class WeatherQueryResult {
             String line;
 
             while ((line = bufferedReader.readLine()) != null) {
-                content.append(line + "\n");
+                content.append(line).append("\n");
             }
             bufferedReader.close();
 
        } catch (Exception e) {
-            content.append("Error:" + e);
+            content.append("Error:").append(e);
        }
         return content.toString();
     }
 
-    public String getWeatherData() { return weatherData; }
+    String getWeatherData() { return weatherData; }
 }

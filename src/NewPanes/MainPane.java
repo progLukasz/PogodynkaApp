@@ -17,7 +17,7 @@ public class MainPane extends BorderPane {
     private TitledPane tab1;
     private TitledPane tab2;
     private TitledPane tab3;
-    Accordion accordion;
+    private Accordion accordion;
 
 
     public MainPane(String homeCity, FiveDaysWeather homeCityWeather, String destinationCity, FiveDaysWeather
@@ -49,13 +49,18 @@ public class MainPane extends BorderPane {
         this.accordion = new Accordion();
         this.accordion.getPanes().addAll(tab1, tab2, tab3);
         this.setTop(accordion);
+
         this.accordion.expandedPaneProperty().addListener((property, oldPane, newPane) -> {
             if (newPane != null) {
-                centralGrid.setHintForUser("Możesz wyświetlić szczegółową pogodę po kliknięciu na jeden "  +
+                this.centralGrid.setHintForUser("Możesz wyświetlić szczegółową pogodę po kliknięciu na jeden "  +
                         "z węzłów wykresu.");
+                this.centralGrid.getChildren().clear();
             } else {
-                centralGrid.selectHintForUser();
-                centralGrid.setImageInCentralPane();
+                if (!this.tab1.expandedProperty().getValue() && !this.tab2.expandedProperty().getValue() && !this
+                        .tab3.expandedProperty().getValue()) {
+                    this.centralGrid.selectHintForUser();
+                    this.centralGrid.setImageInCentralPane();
+                }
             }
         });
     }
